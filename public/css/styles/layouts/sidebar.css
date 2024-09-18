@@ -1,0 +1,72 @@
+.main-sidebar {
+    height: 100vh;
+    overflow: hidden; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* width: 250px; Adjust width as needed */
+    /* background-color: #222d32;  */
+    /* color: #b8c7ce00;  */
+    /* background: rgb(255,255,255);   */
+    /* background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(60,141,188,1) 40%, rgba(0,212,255,1) 100%); */
+
+  }
+  .sidebar {
+    height: 100%;
+    overflow-y: auto; 
+  }
+   .sidebar-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .treeview-menu {
+    overflow-x: auto; 
+  }
+  .sidebar-menu > li {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    .main-sidebar {
+      width: 100%; 
+      height: auto; 
+    }
+    .sidebar {
+      overflow-y: auto; 
+    }
+  }
+.sidebar::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .sidebar::-webkit-scrollbar-track {
+    background: #2c3e50; 
+  }
+  
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #3498db; 
+    border-radius: 4px; 
+  }
+  
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #2980b9; 
+  }
+  .sidebar {
+    scrollbar-width: thin; 
+    /* scrollbar-color: #3498db #2c3e50; Handle and track color */
+  }
+ 
+
+  .img-circle{
+    border-radius: 50%;
+  }
+
+  .main-sidebar {
+    transition: width 2.5s ease-in-out;
+  }
+  
+  .sidebar-collapse .main-sidebar {
+    width: 0;
+    overflow: hidden;
+  }
+  

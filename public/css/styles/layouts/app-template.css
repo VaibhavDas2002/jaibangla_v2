@@ -1,0 +1,19 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
+@import url('css/ionicons.min.css');
+@import url('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.css');
+@import url('/bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.css');
+@import url('bower_components/AdminLTE/plugins/datepicker/datepicker3.css');
+@import url('/bower_components/AdminLTE/dist/css/AdminLTE.min.css');
+@import url('/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css');
+@import url('/bower_components/AdminLTE/plugins/iCheck/flat/blue.css');
+
+body a{
+  text-decoration: none;
+}
+
+
+.imageSize{
+    font-size: 9px;
+    color: #333;
+ }

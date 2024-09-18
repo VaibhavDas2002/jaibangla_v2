@@ -1,0 +1,30 @@
+.user-menu.custom-style {
+  color: white;
+  margin-right: 15px;
+}
+#logout-form {
+  display: none;
+}
+.user-image {
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.dropdown-menu {
+  max-width: 300px; 
+  overflow-x: hidden;
+  overflow-y: auto; 
+  position: absolute; 
+  z-index: 1050; 
+  margin: -150px;
+}
+.dropdown-menu {
+  margin-top: 0; 
+}
+.dropdown-item {
+  white-space: nowrap; 
+}
+.custom-nav{
+  height: 10px;
+  padding: 0px;
+}
