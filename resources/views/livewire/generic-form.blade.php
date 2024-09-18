@@ -2,6 +2,7 @@
     class="submit-once">
     {{ csrf_field() }}
     <div class="tab-content" style="margin-top:16px;">
+
         <x-common.personal-details :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
         <x-common.personal-id-number :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
         <x-common.contact-details :scheme_id="$scheme_id" :districts="$districts" :confirm_submit="$confirm_submit" />
@@ -15,8 +16,11 @@
             <x-common.additional-details :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
         @endif
         <x-common.self-decleration :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
-        @livewire('confirm-submission', ['scheme_id' => $scheme_id] )  
-      
+
+
+
+        @livewire('confirm-submission', ['scheme_id' => $scheme_id])
+
     </div>
 
 </form>

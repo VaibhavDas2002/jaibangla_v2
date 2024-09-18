@@ -99,8 +99,8 @@ class GenericForm extends Component
 
     public function confirm()
     {
-        // $this->confirm_submit = 1;
-        // $this->dispatch('show-submissions-modal', confirmSubmitId: $this->confirm_submit);
+        $this->confirm_submit = 1;
+        $this->dispatch('show-submissions-modal', confirmSubmitId: $this->confirm_submit);
     }
 
     public function render()

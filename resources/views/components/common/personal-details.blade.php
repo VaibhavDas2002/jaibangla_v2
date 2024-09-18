@@ -312,8 +312,10 @@
             // Function to update span text content
             function updateSpan(id, value) {
                 const span = document.getElementById(id);
+                console.log(span);
                 if (span) {
                     span.textContent = value;
+                    
                 }
             }
 
