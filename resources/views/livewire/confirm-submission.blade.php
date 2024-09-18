@@ -10,6 +10,14 @@
         margin: 0px;
         font-size: 3vh;
     }
+
+    .self {
+        float: left;
+        font-weight: 700;
+        margin-right: 1%;
+        padding-top: 1%;
+        margin-top: 1%;
+    }
 </style>
 <div class="modal modal-xl fade" wire:ignore.self id="confirm-submit" tabindex="-1" aria-labelledby="confirmSubmitLabel"
     data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -26,9 +34,10 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="modal_field_name"></div>
-                                <div class="modal_field_value" id=""> <img
-                                        src="{{ url('/')}}/bower_components/Emblem_of_West_Bengal.png" width="180px"
-                                        height="200px"></div>
+                                <div class="modal_field_value" id="">
+                                    <img src="{{ url('/')}}/bower_components/Emblem_of_West_Bengal.png" width="180px"
+                                        height="200px">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div align="center">
@@ -53,12 +62,6 @@
                             <div class="row color1">
                                 <div class="col-md-12">
                                     <h2>Personal Details</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="modal_field_name">Application Phase:</div>
-                                    <div class="modal_field_value" id=app_phase_modal></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -114,18 +117,13 @@
                                     <div class="modal_field_value" id=caste_category_modal></div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="modal_field_name">Temple type:</div>
-                                    <div class="modal_field_value" id=temple_type_modal></div>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="section1">
                             <div class="row color1">
                                 <div class="col-md-12">
-                                    <h2 style="">Personal Identification Number(S)</h2>
+                                    <h2>Personal Identification Number(S)</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -293,7 +291,7 @@
                         <div class="section1">
                             <div class="row color1">
                                 <div class="col-md-12">
-                                    <h2 style="">Land Details (In case of Dwelling House)</h2>
+                                    <h2>Land Details (In case of Dwelling House)</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -328,7 +326,7 @@
                         <div class="section1">
                             <div class="row color1">
                                 <div class="col-md-12">
-                                    <h2 style="">Bank Account Details</h2>
+                                    <h2>Bank Account Details</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -361,151 +359,159 @@
                         <div class="section1">
                             <div class="row color1">
                                 <div class="col-md-12">
-                                    <h2 style="">Self Declaration</h2>
+                                    <h2>Additional Details</h2>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">I <span id="ssp_y_n_modal"></span> a beneficiary
-                                        of any other Social Security pension scheme or a recipient of Government
-                                        pension or pension from any other organization.
-                                    </div>
 
+                                <div class="col-md-12">
+                                    <div class="modal_field_name">Application Phase:</div>
+                                    <div class="modal_field_value" id=app_phase_modal></div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="modal_field_name">I <span id="pucca_house_y_n_modal"></span> Pucca
-                                        dwelling
-                                        house.</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">In the event of my death, I hereby nominate
-                                        (Please mention Name, Address &
-                                        Relationship)</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">Name:</div>
-                                    <div class="modal_field_value" id="nominate_name_modal"></div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">Address:</div>
-                                    <div class="modal_field_value" id="nominate_address_modal"></div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">Relationship:</div>
-                                    <div class="modal_field_value" id="nominate_relationship_modal"></div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">to receive the rest amount payable to me till my death
-                                    </div>
-
-                                </div>
-                                <div class="col-md-12 aadhar-text-modal">
-                                    <div class="modal_field_name">I <span id="av_status_modal">give</span> consent to
-                                        the
-                                        use of the Aadhaar No.for authenticating my identity for social security pension
-                                        (In
-                                        case Aadhaar no. provided by the applicant)</div>
-
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal_field_name">Presently, I am reciving following pension(s) from:
-                                    </div>
-                                    <div class="modal_field_value" id="receive-pension-modal"></div>
-                                </div>
-
-                                <div class="col-md-12" style="
-float: left;
-font-weight: 700;
-margin-right: 1%;
-padding-top: 1%;
-margin-top: 1%;">
-                                    <div>In case the applicant is receiving pension from other sources:</div>
-                                    <ul>
-                                        <li>1.<span id="receiving_pension_other_source_1_txt"></span></li>
-                                        <li>2.<span id="receiving_pension_other_source_2_txt"></span></li>
-                                    </ul>
-
+                                    <div class="modal_field_name">Temple type:</div>
+                                    <div class="modal_field_value" id=temple_type_modal></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="text-align: center;">
 
-                    <div class=""><img src="{{ asset('images/ZKZg.gif')}}" id="submit_loader" width="150px"
-                            height="150px"></div>
+                <div class="section1">
+                    <div class="row color1">
+                        <div class="col-md-12">
+                            <h2>Self Declaration</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="modal_field_name">I <span id="ssp_y_n_modal"></span> a beneficiary
+                                of any other Social Security pension scheme or a recipient of Government
+                                pension or pension from any other organization.
+                            </div>
 
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">I <span id="pucca_house_y_n_modal"></span> Pucca
+                                dwelling
+                                house.</div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">In the event of my death, I hereby nominate
+                                (Please mention Name, Address &
+                                Relationship)</div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">Name:</div>
+                            <div class="modal_field_value" id="nominate_name_modal"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">Address:</div>
+                            <div class="modal_field_value" id="nominate_address_modal"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">Relationship:</div>
+                            <div class="modal_field_value" id="nominate_relationship_modal"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">to receive the rest amount payable to me till my death
+                            </div>
+
+                        </div>
+                        <div class="col-md-12 aadhar-text-modal">
+                            <div class="modal_field_name">I <span id="av_status_modal">give</span> consent to
+                                the
+                                use of the Aadhaar No.for authenticating my identity for social security pension
+                                (In
+                                case Aadhaar no. provided by the applicant)</div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="modal_field_name">Presently, I am reciving following pension(s) from:
+                            </div>
+                            <div class="modal_field_value" id="receive-pension-modal"></div>
+                        </div>
+
+                        <div class="col-md-12 self">
+                            <div>In case the applicant is receiving pension from other sources:</div>
+                            <ul>
+                                <li>1.<span id="receiving_pension_other_source_1_txt"></span></li>
+                                <li>2.<span id="receiving_pension_other_source_2_txt"></span></li>
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer text-center">
+        <div class="modal-footer text-center" style="text-align: center;">
+
             <button type="reset" class="btn btn-danger btn-lg">Reset</button>
             <button type="button" id="submit-btn" class="btn btn-success btn-lg modal-submit" data-bs-dismiss="modal"
                 aria-label="Close">Submit</button>
         </div>
     </div>
 </div>
-</div>
 
 
 <script>
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     const confirm_submit = document.getElementById('confirm_submit').value;
-        //     if (confirm_submit === '1') {
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const confirm_submit = document.getElementById('confirm_submit').value;
+    //     if (confirm_submit === '1') {
 
 
-        //         const formSelectElements = document.querySelectorAll("#confirm-submit .form-select");
-        //         const formControlElements = document.querySelectorAll("#confirm-submit .form-control");
+    //         const formSelectElements = document.querySelectorAll("#confirm-submit .form-select");
+    //         const formControlElements = document.querySelectorAll("#confirm-submit .form-control");
 
-        //         // Add 'd-none' class to all selected elements
-        //         formSelectElements.forEach((element) => {
-        //             element.classList.add("d-none");
-        //         });
+    //         // Add 'd-none' class to all selected elements
+    //         formSelectElements.forEach((element) => {
+    //             element.classList.add("d-none");
+    //         });
 
-        //         formControlElements.forEach((element) => {
-        //             element.classList.add("d-none");
-        //         });
+    //         formControlElements.forEach((element) => {
+    //             element.classList.add("d-none");
+    //         });
 
 
-        //     }
-        //     // Select elements inside the modal
-        //     const detailSections = document.querySelectorAll(
-        //         '#confirm-submit #personal_details, ' +
-        //         '#confirm-submit #id_details, ' +
-        //         '#confirm-submit #contact_details, ' +
-        //         '#confirm-submit #land_details, ' +
-        //         '#confirm-submit #bank_details, ' +
-        //         '#confirm-submit #additional_details, ' + // Added missing comma
-        //         '#confirm-submit #decl_details'
-        //     );
+    //     }
+    //     // Select elements inside the modal
+    //     const detailSections = document.querySelectorAll(
+    //         '#confirm-submit #personal_details, ' +
+    //         '#confirm-submit #id_details, ' +
+    //         '#confirm-submit #contact_details, ' +
+    //         '#confirm-submit #land_details, ' +
+    //         '#confirm-submit #bank_details, ' +
+    //         '#confirm-submit #additional_details, ' + // Added missing comma
+    //         '#confirm-submit #decl_details'
+    //     );
 
-        //     const buttonsToFade = document.querySelectorAll(
-        //         '#confirm-submit #btn_personal_details, ' +
-        //         '#confirm-submit #previous_btn_id_details, ' +
-        //         '#confirm-submit #btn_id_details, ' +
-        //         '#confirm-submit #previous_btn_contact_details, ' +
-        //         '#confirm-submit #btn_contact_details, ' +
-        //         '#confirm-submit #previous_btn_land_details, ' +
-        //         '#confirm-submit #btn_land_details, ' +
-        //         '#confirm-submit #previous_btn_bank_details, ' +
-        //         '#confirm-submit #btn_bank_details, ' +
-        //         '#confirm-submit #previous_btn_decl_details, ' +
-        //         '#confirm-submit #btn_submit_preview, ' + // Added missing comma
-        //         '#confirm-submit #btn_add_details, ' + // Added missing comma
-        //         '#confirm-submit #previous_btn_add_details'
-        //     );
+    //     const buttonsToFade = document.querySelectorAll(
+    //         '#confirm-submit #btn_personal_details, ' +
+    //         '#confirm-submit #previous_btn_id_details, ' +
+    //         '#confirm-submit #btn_id_details, ' +
+    //         '#confirm-submit #previous_btn_contact_details, ' +
+    //         '#confirm-submit #btn_contact_details, ' +
+    //         '#confirm-submit #previous_btn_land_details, ' +
+    //         '#confirm-submit #btn_land_details, ' +
+    //         '#confirm-submit #previous_btn_bank_details, ' +
+    //         '#confirm-submit #btn_bank_details, ' +
+    //         '#confirm-submit #previous_btn_decl_details, ' +
+    //         '#confirm-submit #btn_submit_preview, ' + // Added missing comma
+    //         '#confirm-submit #btn_add_details, ' + // Added missing comma
+    //         '#confirm-submit #previous_btn_add_details'
+    //     );
 
-        //     // Remove 'fade' class and add 'active in' class to detail sections
-        //     detailSections.forEach(section => {
-        //         section.classList.remove('fade');
-        //         section.classList.add('active', 'in');
-        //     });
+    //     // Remove 'fade' class and add 'active in' class to detail sections
+    //     detailSections.forEach(section => {
+    //         section.classList.remove('fade');
+    //         section.classList.add('active', 'in');
+    //     });
 
-        //     // Add 'fade' class to buttons
-        //     buttonsToFade.forEach(button => {
-        //         button.classList.add('fade');
-        //     });
-        // });
+    //     // Add 'fade' class to buttons
+    //     buttonsToFade.forEach(button => {
+    //         button.classList.add('fade');
+    //     });
+    // });
 
 
     document.getElementById('btn_submit_preview').addEventListener('click', function () {
@@ -519,10 +525,22 @@ margin-top: 1%;">
         document.getElementById('mother_name_modal').textContent = document.getElementById('mother_first_name').value + ' ' +
             document.getElementById('mother_middle_name').value + ' ' + document.getElementById('mother_last_name').value;
         document.getElementById('marital_status_modal').textContent = document.getElementById('marital_status').value;
-        document.getElementById('caste_category_modal').textContent = document.getElementById('caste_category').value;
+
+        var caste = document.getElementById('caste_category')
+        if (caste) {
+            document.getElementById('caste_category_modal').textContent = document.getElementById('caste_category').value;
+        }
+        else {
+            document.getElementById('caste_category_modal').textContent = 'General'
+        }
+        var maritals = document.getElementById('marital_status').value;
+        if (maritals == 'Married') {
+            document.getElementById('spouse_name_modal').textContent = document.getElementById('spouse_first_name').value + ' ' +
+                document.getElementById('spouse_middle_name').value + ' ' + document.getElementById('spouse_last_name').value;
+        }
+
+
         document.getElementById('temple_type_modal').textContent = document.getElementById('temple_type').value;
-        document.getElementById('spouse_name_modal').textContent = document.getElementById('spouse_first_name').value + ' ' +
-            document.getElementById('spouse_middle_name').value + ' ' + document.getElementById('spouse_last_name').value;
         document.getElementById('ration_card_no_modal').textContent = document.getElementById('ration_card_cat').value + '-' +
             document.getElementById('ration_card_no').value;
         document.getElementById('aadhar_no_modal').textContent = document.getElementById('aadhar_no').value;
@@ -532,7 +550,7 @@ margin-top: 1%;">
         document.getElementById('asmb_cons_modal').textContent = document.querySelector('#asmb_cons option:checked').textContent;
         document.getElementById('district_modal').textContent = document.querySelector('#district option:checked').textContent;
         document.getElementById('police_station_modal').textContent = document.getElementById('police_station').value;
-        document.getElementById('block_modal').textContent = document.querySelector('#block option:checked').textContent;
+        document.getElementById('block_modal').textContent = document.querySelector('#block_urbanBody option:checked').textContent;
         document.getElementById('gp_ward_modal').textContent = document.querySelector('#gp_ward option:checked').textContent;
         document.getElementById('village_modal').textContent = document.getElementById('village').value;
         document.getElementById('house_modal').textContent = document.getElementById('house').value;
@@ -547,7 +565,7 @@ margin-top: 1%;">
             document.getElementById('asmb_cons_cur_modal').textContent = document.querySelector('#asmb_cons option:checked').textContent;
             document.getElementById('district_cur_modal').textContent = document.querySelector('#district option:checked').textContent;
             document.getElementById('police_station_cur_modal').textContent = document.getElementById('police_station').value;
-            document.getElementById('block_cur_modal').textContent = document.querySelector('#block option:checked').textContent;
+            document.getElementById('block_cur_modal').textContent = document.querySelector('#block_urbanBody option:checked').textContent;
             document.getElementById('gp_ward_cur_modal').textContent = document.querySelector('#gp_ward option:checked').textContent;
             document.getElementById('village_cur_modal').textContent = document.getElementById('village').value;
             document.getElementById('house_cur_modal').textContent = document.getElementById('house').value;
