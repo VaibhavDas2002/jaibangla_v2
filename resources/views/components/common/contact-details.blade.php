@@ -148,58 +148,58 @@
             var schemeId = schemeElement ? schemeElement.value : null;
             function handleExperienceClick(nextListId, nextDetailsId) {
 
-                const fields = {
-                    'state': 'value_state',
-                    'district': 'value_district',
-                    'asmb_cons': 'value_asmb_cons',
-                    'urban_code': 'value_urban_code',
-                    'block_urbanBody': 'value_block_urbanBody',
-                    'gp_ward': 'value_gp_ward',
-                    'village': 'value_village',
-                    'house': 'value_house',
-                    'post_office': 'value_post_office',
-                    'pin_code': 'value_pin_code',
-                    'police_station': 'value_police_station',
-                    'state_cur': 'value_state_cur',
-                    'district_cur': 'value_district_cur',
-                    'asmb_cons_cur': 'value_asmb_cons_cur',
-                    'urban_code_cur': 'value_urban_code_cur',
-                    'block_cur': 'value_block_cur',
-                    'gp_ward_cur': 'value_gp_ward_cur',
-                    'village_cur': 'value_village_cur',
-                    'house_cur': 'value_house_cur',
-                    'post_office_cur': 'value_post_office_cur',
-                    'pin_code_cur': 'value_pin_code_cur',
-                    'police_station_cur': 'value_police_station_cur',
-                    'residency_period': 'value_residency_period',
-                    'mobile_no': 'value_mobile_no',
-                    'email': 'value_email',
-                };
+                // const fields = {
+                //     'state': 'value_state',
+                //     'district': 'value_district',
+                //     'asmb_cons': 'value_asmb_cons',
+                //     'urban_code': 'value_urban_code',
+                //     'block_urbanBody': 'value_block_urbanBody',
+                //     'gp_ward': 'value_gp_ward',
+                //     'village': 'value_village',
+                //     'house': 'value_house',
+                //     'post_office': 'value_post_office',
+                //     'pin_code': 'value_pin_code',
+                //     'police_station': 'value_police_station',
+                //     'state_cur': 'value_state_cur',
+                //     'district_cur': 'value_district_cur',
+                //     'asmb_cons_cur': 'value_asmb_cons_cur',
+                //     'urban_code_cur': 'value_urban_code_cur',
+                //     'block_cur': 'value_block_cur',
+                //     'gp_ward_cur': 'value_gp_ward_cur',
+                //     'village_cur': 'value_village_cur',
+                //     'house_cur': 'value_house_cur',
+                //     'post_office_cur': 'value_post_office_cur',
+                //     'pin_code_cur': 'value_pin_code_cur',
+                //     'police_station_cur': 'value_police_station_cur',
+                //     'residency_period': 'value_residency_period',
+                //     'mobile_no': 'value_mobile_no',
+                //     'email': 'value_email',
+                // };
 
                 // Function to update span text content
-                function updateSpan(id, value) {
-                    const span = document.getElementById(id);
-                    if (span) {
-                        span.textContent = value;
-                    }
-                }
+                // function updateSpan(id, value) {
+                //     const span = document.getElementById(id);
+                //     if (span) {
+                //         span.textContent = value;
+                //     }
+                // }
 
                 // Function to get value from <select> or <input> element
-                function getValue(element) {
-                    if (!element) return '';
-                    if (element.tagName === 'SELECT') {
-                        const selectedOption = element.options[element.selectedIndex];
-                        return selectedOption ? selectedOption.textContent : '';
-                    }
-                    return element.value;
-                }
+                // function getValue(element) {
+                //     if (!element) return '';
+                //     if (element.tagName === 'SELECT') {
+                //         const selectedOption = element.options[element.selectedIndex];
+                //         return selectedOption ? selectedOption.textContent : '';
+                //     }
+                //     return element.value;
+                // }
 
                 // Update spans based on input/select values
-                for (const [inputId, spanId] of Object.entries(fields)) {
-                    const input = document.getElementById(inputId);
-                    const value = getValue(input);
-                    updateSpan(spanId, value);
-                }
+                // for (const [inputId, spanId] of Object.entries(fields)) {
+                //     const input = document.getElementById(inputId);
+                //     const value = getValue(input);
+                //     updateSpan(spanId, value);
+                // }
 
                 let listContactDetails = document.getElementById('list_contact_details');
                 let contactDetails = document.getElementById('contact_details');
@@ -251,9 +251,6 @@
             }
             // }
         });
-
-
-
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -355,11 +352,6 @@
         updateFields();
         curPerSame.addEventListener('change', updateFields);
     });
-
-
-
-
-
     // // Contact Details -> ID Details (Previous)
     document.getElementById('previous_btn_contact_details').addEventListener('click', function () {
 

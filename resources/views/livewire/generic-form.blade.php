@@ -16,10 +16,8 @@
             <x-common.additional-details :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
         @endif
         <x-common.self-decleration :scheme_id="$scheme_id" :confirm_submit="$confirm_submit" />
-
-
-
-        @livewire('confirm-submission', ['scheme_id' => $scheme_id])
+        <x-common.confirm-submission :scheme_id="$scheme_id" :profile_img="$profile_img"/>
+   
 
     </div>
 

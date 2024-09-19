@@ -95,7 +95,7 @@
                     <br />
                     @foreach(Config::get('constants.pension_body') as $key => $desc)
                         <label>
-                            <input type="checkbox" class="form-check-input receive-pension" name="receive_pension[]"
+                            <input type="checkbox" class="form-check-input receive-pension" id="receive_pension[]" name="receive_pension[]"
                                 value="{{$key}}" checked> {{$desc}}
                         </label>
                         <br />
