@@ -67,9 +67,6 @@
     </x-slot>
     <x-slot name="scripts">
         <script src="{{ asset('js/scripts/genericForm.js') }}"></script>
-     
-
-
-    </x-slot>
+         </x-slot>
 
 </x-app-layout>

@@ -285,57 +285,57 @@
             // Mapping of input/select IDs to span IDs
 
             // if (confirm_submit_code === 0) {
-            const fields = {
-                'entry_type': 'value_entry_type',
-                'ds_registration_no': 'value_ds_registration_no',
-                'ds_date': 'value_ds_date',
-                'first_name': 'value_first_name',
-                'middle_name': 'value_middle_name',
-                'last_name': 'value_last_name',
-                'gender': 'value_gender',
-                'dob': 'value_dob',
-                'father_first_name': 'value_father_first_name',
-                'father_middle_name': 'value_father_middle_name',
-                'father_last_name': 'value_father_last_name',
-                'mother_first_name': 'value_mother_first_name',
-                'mother_middle_name': 'value_mother_middle_name',
-                'mother_last_name': 'value_mother_last_name',
-                'caste_category': 'value_caste_category',
-                'caste_certificate_no': 'value_caste_certificate_no',
-                'marital_status': 'value_marital_status',
-                'monthly_income': 'value_monthly_income',
-                'spouse_first_name': 'value_spouse_first_name',
-                'spouse_middle_name': 'value_spouse_middle_name',
-                'spouse_last_name': 'value_spouse_last_name'
-            };
+            // const fields = {
+            //     'entry_type': 'value_entry_type',
+            //     'ds_registration_no': 'value_ds_registration_no',
+            //     'ds_date': 'value_ds_date',
+            //     'first_name': 'value_first_name',
+            //     'middle_name': 'value_middle_name',
+            //     'last_name': 'value_last_name',
+            //     'gender': 'value_gender',
+            //     'dob': 'value_dob',
+            //     'father_first_name': 'value_father_first_name',
+            //     'father_middle_name': 'value_father_middle_name',
+            //     'father_last_name': 'value_father_last_name',
+            //     'mother_first_name': 'value_mother_first_name',
+            //     'mother_middle_name': 'value_mother_middle_name',
+            //     'mother_last_name': 'value_mother_last_name',
+            //     'caste_category': 'value_caste_category',
+            //     'caste_certificate_no': 'value_caste_certificate_no',
+            //     'marital_status': 'value_marital_status',
+            //     'monthly_income': 'value_monthly_income',
+            //     'spouse_first_name': 'value_spouse_first_name',
+            //     'spouse_middle_name': 'value_spouse_middle_name',
+            //     'spouse_last_name': 'value_spouse_last_name'
+            // };
 
             // Function to update span text content
-            function updateSpan(id, value) {
-                const span = document.getElementById(id);
-                console.log(span);
-                if (span) {
-                    span.textContent = value;
+            // function updateSpan(id, value) {
+            //     const span = document.getElementById(id);
+            //     console.log(span);
+            //     if (span) {
+            //         span.textContent = value;
                     
-                }
-            }
+            //     }
+            // }
 
             // Function to get value from <select> or <input> element
-            function getValue(element) {
-                if (!element) return '';
-                if (element.tagName === 'SELECT') {
-                    const selectedOption = element.options[element.selectedIndex];
-                    return selectedOption ? selectedOption.textContent : '';
-                }
-                return element.value;
-            }
+            // function getValue(element) {
+            //     if (!element) return '';
+            //     if (element.tagName === 'SELECT') {
+            //         const selectedOption = element.options[element.selectedIndex];
+            //         return selectedOption ? selectedOption.textContent : '';
+            //     }
+            //     return element.value;
+            // }
 
             // Update spans based on input/select values
-            for (const [inputId, spanId] of Object.entries(fields)) {
-                const input = document.getElementById(inputId);
-                const value = getValue(input);
-                updateSpan(spanId, value);
-                // }
-            }
+            // for (const [inputId, spanId] of Object.entries(fields)) {
+            //     const input = document.getElementById(inputId);
+            //     const value = getValue(input);
+            //     updateSpan(spanId, value);
+            //     // }
+            // }
 
 
             let listPersonalDetails = document.getElementById('list_personal_details');

@@ -9,5 +9,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-node_modules
 /vendor
+node_modules
