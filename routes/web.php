@@ -6,7 +6,8 @@ use App\Http\Controllers\{
     FAQController,
     PolicyController,
     UserManualController,
-    EntryFormController
+    EntryFormController,
+    reportController
 };
 
 
@@ -45,3 +46,20 @@ Route::get('download_user_manual', [UserManualController::class, 'downloadstatic
 // Entry Form
 Route::get('entryformoption', [EntryFormController::class, 'SelectScheme']);
 Route::get('formEntry', [EntryFormController::class, 'FormEntry'])->name('formEntry');
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SelectReport
+//
+Route::get('gotoReport', [reportController::class, 'SelectReport'])->name('SelectReport');
+Route::post('report_search', [reportController::class, 'report_search'])->name('report_search');
