@@ -2,7 +2,11 @@
     <x-slot name="title">
         <h1>Scheme Selection</h1>
     </x-slot>
+
     <x-slot name="content">
+        <!-- Success message -->
+       
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-5">
@@ -13,6 +17,7 @@
                         <div class="card-body">
                             <form class="form-horizontal" role="form" method="GET" action="{{ route('formEntry') }}">
                                 {{ csrf_field() }}
+
                                 <div class="form-group row{{ $errors->has('scheme') ? ' has-error' : '' }}">
                                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                                         <x-common.scheme-list :schemes="$schemes" class="me-2" />

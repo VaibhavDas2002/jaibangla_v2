@@ -1,8 +1,6 @@
 @props(['scheme_id', 'confirm_submit'])
 <div class="tab-pane fade" id="decl_details">
-    @if(isset($scheme_id))
-        <input type="hidden" name="scheme_id" id="scheme_id_dec" value="{{$scheme_id}}" />
-    @endif
+<input type="hidden" name="scheme_id" id="scheme_id_dec" value="{{$scheme_id}}" />
     <div class="card">
         <div class="card-header">
             <h4><b>Self Declaration</b></h4>
@@ -121,6 +119,7 @@
                     <input type="button" class="btn btn-success btn-lg" name="btn_submit_preview"
                         id="btn_submit_preview" value="Preview and Submit" data-bs-toggle="modal"
                         data-bs-target="#confirm-submit" >
+                        <span wire:loading>Saving...</span> 
                 </div>
             </div>
         </div>

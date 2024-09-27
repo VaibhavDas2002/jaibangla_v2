@@ -1,9 +1,21 @@
-<link href="{{ asset('css/styles/addForm.css') }}" rel="stylesheet"  type="text/css" />
+<link href="{{ asset('css/styles/addForm.css') }}" rel="stylesheet" type="text/css" />
 <x-app-layout>
     <x-slot name="title">
         <h1> Jai Bangla Form</h1>
     </x-slot>
     <x-slot name="content">
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        <!-- Error message -->
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -24,16 +36,17 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link inactive_tab1" id="list_contact_details" style="border:1px solid #ccc">
+                                <a class="nav-link inactive_tab1" id="list_contact_details"
+                                    style="border:1px solid #ccc">
                                     <b>Contact Details</b>
                                 </a>
                             </li>
                             @if ($scheme_id == 17)
-                            <li class="nav-item">
-                                <a class="nav-link inactive_tab1" id="list_land_details"
-                                    style="border:1px solid #ccc"><b>Land Details (In case of Dwelling
-                                        House)</b></a>
-                            </li>                            
+                                <li class="nav-item">
+                                    <a class="nav-link inactive_tab1" id="list_land_details"
+                                        style="border:1px solid #ccc"><b>Land Details (In case of Dwelling
+                                            House)</b></a>
+                                </li>
                             @endif
                             <li class="nav-item">
                                 <a class="nav-link inactive_tab1" id="list_bank_details" style="border:1px solid #ccc">
@@ -41,15 +54,16 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link inactive_tab1" id="list_experience_details" style="border:1px solid #ccc">
+                                <a class="nav-link inactive_tab1" id="list_experience_details"
+                                    style="border:1px solid #ccc">
                                     <b>Enclosure List (Self Attested)</b>
                                 </a>
                             </li>
                             @if ($scheme_id == 17)
-                            <li class="nav-item">
-                                <a class="nav-link inactive_tab1" id="list_additional_details"
-                                    style="border:1px solid #ccc"><b>Additional Details</b></a>
-                            </li>                            
+                                <li class="nav-item">
+                                    <a class="nav-link inactive_tab1" id="list_additional_details"
+                                        style="border:1px solid #ccc"><b>Additional Details</b></a>
+                                </li>
                             @endif
                             <li class="nav-item">
                                 <a class="nav-link inactive_tab1" id="list_decl_details" style="border:1px solid #ccc">
@@ -57,9 +71,9 @@
                                 </a>
                             </li>
                         </ul>
-                        
-                        
-                        @livewire('generic-form', ['scheme_id' => $scheme_id ])
+
+
+                        @livewire('generic-form', ['scheme_id' => $scheme_id])
                     </div>
                 </div>
             </div>
@@ -67,6 +81,6 @@
     </x-slot>
     <x-slot name="scripts">
         <script src="{{ asset('js/scripts/genericForm.js') }}"></script>
-         </x-slot>
+    </x-slot>
 
 </x-app-layout>

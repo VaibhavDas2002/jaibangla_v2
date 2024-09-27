@@ -45,3 +45,5 @@ Route::get('download_user_manual', [UserManualController::class, 'downloadstatic
 // Entry Form
 Route::get('entryformoption', [EntryFormController::class, 'SelectScheme']);
 Route::get('formEntry', [EntryFormController::class, 'FormEntry'])->name('formEntry');
+
+Route::post('JBFormStore/{scheme_id?}', [EntryFormController::class, 'store'])->name('JBFormStore');
