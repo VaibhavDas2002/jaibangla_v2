@@ -72,9 +72,9 @@
 
 <!-- District Dropdown -->
 <div class="form-group">
-    <label for="district" class="col-md-4 control-label required-field">Select District</label>
+    <label for="district" class="col-md-4 control-label required-field"{{ !$this->getDropdownStates()['district'] ? 'hidden' : '' }}>Select District</label>
     <div class="col-md-6">
-        <select class="form-control" wire:model.live="district_id" {{ !$this->getDropdownStates()['district'] ? 'disabled' : '' }}>
+        <select class="form-control" wire:model.live="district_id" {{ !$this->getDropdownStates()['district'] ? 'hidden' : '' }}>
             <option value="">--Select District--</option>
             @foreach($districts as $district)
                 <option value="{{ $district->district_code }}">
@@ -87,9 +87,9 @@
 
 <!-- Block Dropdown -->
 <div class="form-group">
-    <label for="block" class="col-md-4 control-label required-field">Select Block</label>
+    <label for="block" class="col-md-4 control-label required-field" {{ !$this->getDropdownStates()['block'] ? 'hidden' : '' }}>Select Block</label>
     <div class="col-md-6">
-        <select class="form-control" wire:model.live="block_id" {{ !$this->getDropdownStates()['block'] ? 'disabled' : '' }}>
+        <select class="form-control" wire:model.live="block_id" {{ !$this->getDropdownStates()['block'] ? 'hidden' : '' }}>
             <option value="">--Select Block--</option>
             @foreach($blocks as $block)
                 <option value="{{ $block->block_code }}">
@@ -102,9 +102,9 @@
 
 <!-- Subdivision Dropdown -->
 <div class="form-group">
-    <label for="subdivision" class="col-md-4 control-label required-field">Select Subdivision</label>
+    <label for="subdivision" class="col-md-4 control-label required-field"{{ !$this->getDropdownStates()['subdivision'] ? 'hidden' : '' }}>Select Subdivision</label>
     <div class="col-md-6">
-        <select class="form-control" wire:model.live="subdivision_id" {{ !$this->getDropdownStates()['subdivision'] ? 'disabled' : '' }}>
+        <select class="form-control" wire:model.live="subdivision_id" {{ !$this->getDropdownStates()['subdivision'] ? 'hidden' : '' }}>
             <option value="">--Select Subdivision--</option>
             @foreach($subdivisions as $subdivision)
                 <option value="{{ $subdivision->sub_district_code }}">

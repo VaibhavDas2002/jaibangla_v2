@@ -217,7 +217,8 @@ public function loadUserDutyAssignments($userId)
             }
 
             Session::flash('success', 'User and duty assignments updated successfully!');
-            return redirect()->route('dutymanagementForm')->with('success', 'User and duty assignments updated successfully!');
+            return redirect()->route('editUserForm', ['id' => $user->id])
+                         ->with('success', 'User and duty assignments updated successfully!');
         }
     }
 
