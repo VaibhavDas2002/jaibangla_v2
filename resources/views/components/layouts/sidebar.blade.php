@@ -30,6 +30,8 @@
 
 
     <li class=""><a href="{{ route('SelectReport')}}"><i class="fa fa-link"></i><span>Go To Report</span></a></li>
+    <li class=""><a href="{{ route('applicantReport')}}"><i class="fa fa-link"></i><span>Applicant Report</span></a></li>
+
     </ul>
   </section>
 </aside>

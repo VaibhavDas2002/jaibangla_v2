@@ -60,6 +60,10 @@ Route::get('formEntry', [EntryFormController::class, 'FormEntry'])->name('formEn
 
 
 // SelectReport
-//
+// Sk Routes here
 Route::get('gotoReport', [reportController::class, 'SelectReport'])->name('SelectReport');
-Route::post('report_search', [reportController::class, 'report_search'])->name('report_search');
+Route::get('/generate-report', [reportController::class, 'generateReport'])->name('generate_report');
+Route::get('filterReport', [reportController::class, 'filterReport'])->name('filterReport');
+Route::get('applicantReport', [reportController::class, 'applicantReport'])->name('applicantReport');
+
+// ends here
