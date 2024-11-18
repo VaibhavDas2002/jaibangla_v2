@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     UserManualController,
     EntryFormController,
     workflowController,
-    dutymanagementController
+    dutymanagementController,
+    tokenrequestcreationController
 };
 
 
@@ -55,3 +56,7 @@ Route::get('workflowFrom', [workflowController::class, 'workflowFrom'])->name('w
 Route::get('dutymanagement', [dutymanagementController::class, 'managemntPage']);
 Route::get('dutymanagementForm', [dutymanagementController::class, 'dutymanagementForm'])->name('dutymanagementForm');
 Route::get('editUserForm/{id}', [DutymanagementController::class, 'editUserForm'])->name('editUserForm');
+//token request create
+Route::get('tokencreation', [tokenrequestcreationController::class, 'tokenCreation']);
+Route::post('/search-beneficiaries', [TokenRequestCreationController::class, 'searchBeneficiaries'])->name('searchBeneficiaries');
+Route::post('/finalSubmit', [tokenrequestcreationController::class, 'finalSubmit'])->name('finalSubmit');
