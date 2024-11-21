@@ -6,7 +6,10 @@ use App\Http\Controllers\{
     FAQController,
     PolicyController,
     UserManualController,
-    EntryFormController
+    EntryFormController,
+    workflowController,
+    dutymanagementController,
+    tokenrequestcreationController
 };
 
 
@@ -47,3 +50,14 @@ Route::get('entryformoption', [EntryFormController::class, 'SelectScheme']);
 Route::get('formEntry', [EntryFormController::class, 'FormEntry'])->name('formEntry');
 
 Route::post('JBFormStore/{scheme_id?}', [EntryFormController::class, 'store'])->name('JBFormStore');
+//workflow
+Route::get('workflow', [workflowController::class, 'SelectScheme']);
+Route::get('workflowFrom', [workflowController::class, 'workflowFrom'])->name('workflowFrom');
+//dutymanagement
+Route::get('dutymanagement', [dutymanagementController::class, 'managemntPage']);
+Route::get('dutymanagementForm', [dutymanagementController::class, 'dutymanagementForm'])->name('dutymanagementForm');
+Route::get('editUserForm/{id}', [DutymanagementController::class, 'editUserForm'])->name('editUserForm');
+//token request create
+Route::get('tokencreation', [tokenrequestcreationController::class, 'tokenCreation']);
+Route::post('/search-beneficiaries', [TokenRequestCreationController::class, 'searchBeneficiaries'])->name('searchBeneficiaries');
+Route::post('/finalSubmit', [tokenrequestcreationController::class, 'finalSubmit'])->name('finalSubmit');
