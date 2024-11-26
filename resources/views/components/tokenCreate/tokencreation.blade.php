@@ -69,6 +69,25 @@
                 <button type="button" id="finalSubmit" class="btn btn-success mt-3">Final Submit</button>
             </div>
         </section>
+        <!-- Confirmation Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Submission</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to submit the selected records?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" id="confirmSubmit" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             var addedRecords = []; // Store added records temporarily
@@ -227,39 +246,75 @@
                 });
             });
 
+            // $('#finalSubmit').on('click', function() {
+            //     var token = $('input[name="_token"]').val();
+
+            //     if (addedRecords.length === 0) {
+            //         alert("No records to submit.");
+            //         showError("No records to submit.");
+            //         return;
+            //     }
+            //     schemes = $('#schemes').val()
+            //     $.ajax({
+            //         url: "{{ route('finalSubmit') }}", // You need to define this route
+            //         type: "POST",
+            //         data: {
+            //             _token: token,
+            //             records: addedRecords,
+            //             schemes: schemes
+            //         },
+            //         success: function(response) {
+            //             $('#errorMessage').hide();
+            //             alert("Records submitted successfully!");
+            //             window.location.reload();
+            //             // Clear the temporary table and reset the addedRecords array
+            //             addedRecords = [];
+            //             //$('#temporaryTable tbody').empty();
+            //             //$('#temporaryTableSection').hide();
+
+            //         },
+            //         error: function(xhr) {
+            //             alert("An error occurred while submitting the records.");
+            //             showError("An error occurred while processing the records.");
+            //         }
+            //     });
+            // });
             $('#finalSubmit').on('click', function() {
-                var token = $('input[name="_token"]').val();
-
-                if (addedRecords.length === 0) {
-                    alert("No records to submit.");
-                    showError("No records to submit.");
-                    return;
-                }
-                schemes = $('#schemes').val()
-                $.ajax({
-                    url: "{{ route('finalSubmit') }}", // You need to define this route
-                    type: "POST",
-                    data: {
-                        _token: token,
-                        records: addedRecords,
-                        schemes: schemes
-                    },
-                    success: function(response) {
-                        $('#errorMessage').hide();
-                        alert("Records submitted successfully!");
-                        window.location.reload();
-                        // Clear the temporary table and reset the addedRecords array
-                        addedRecords = [];
-                        //$('#temporaryTable tbody').empty();
-                        //$('#temporaryTableSection').hide();
-
-                    },
-                    error: function(xhr) {
-                        alert("An error occurred while submitting the records.");
-                        showError("An error occurred while processing the records.");
+                    if (addedRecords.length === 0) {
+                        alert("No records to submit.");
+                        showError("No records to submit.");
+                        return;
                     }
+                    // Show confirmation modal
+                    $('#confirmationModal').modal('show');
                 });
-            });
+
+                $('#confirmSubmit').on('click', function() {
+                    var token = $('input[name="_token"]').val();
+                    var schemes = $('#schemes').val();
+
+                    $('#confirmationModal').modal('hide');
+
+                    $.ajax({
+                        url: "{{ route('finalSubmit') }}", // Define this route in your web.php
+                        type: "POST",
+                        data: {
+                            _token: token,
+                            records: addedRecords,
+                            schemes: schemes
+                        },
+                        success: function(response) {
+                            $('#errorMessage').hide();
+                            alert("Records submitted successfully!");
+                            window.location.reload();
+                        },
+                        error: function(xhr) {
+                            alert("An error occurred while submitting the records.");
+                            showError("An error occurred while submitting the records.");
+                        }
+                    });
+                });
+            // });
         </script>
     </x-slot>
 </x-app-layout>

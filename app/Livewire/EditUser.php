@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Designation;
 use App\Models\UserLevel;
 use App\Models\Scheme;
@@ -36,47 +37,47 @@ class EditUser extends Component
     public $subdivisions = [];
 
     public function mount($userId)
-{
-    $this->userId = $userId;
-    $this->loadUserData();
+    {
+        $this->userId = $userId;
+        $this->loadUserData();
 
-    // Fetch roles, user levels, schemes, and districts initially
-    $this->roles = Designation::all();
-    $this->userLevels = UserLevel::where('is_active', 1)->get();
-    $this->schemes = Scheme::all();
-    $this->districts = District::all();
+        // Fetch roles, user levels, schemes, and districts initially
+        $this->roles = Designation::all();
+        $this->userLevels = UserLevel::where('is_active', 1)->get();
+        $this->schemes = Scheme::all();
+        $this->districts = District::all();
 
-    // Load blocks and subdivisions based on selected district, if any
-    if ($this->district_id) {
-        $this->loadBlocksAndSubdivisions($this->district_id);
-    } else {
-        $this->blocks = [];
-        $this->subdivisions = [];
-    }
-}
-
-public function updatedDistrictId($district_id)
-{
-    // Reset block and subdivision when district changes
-    $this->block_id = null;
-    $this->subdivision_id = null;
-
-    // Clear blocks and subdivisions if no district is selected
-    if (!$district_id) {
-        $this->blocks = [];
-        $this->subdivisions = [];
-        return;
+        // Load blocks and subdivisions based on selected district, if any
+        if ($this->district_id) {
+            $this->loadBlocksAndSubdivisions($this->district_id);
+        } else {
+            $this->blocks = [];
+            $this->subdivisions = [];
+        }
     }
 
-    // Load blocks and subdivisions based on the selected district
-    $this->loadBlocksAndSubdivisions($district_id);
-}
+    public function updatedDistrictId($district_id)
+    {
+        // Reset block and subdivision when district changes
+        $this->block_id = null;
+        $this->subdivision_id = null;
 
-protected function loadBlocksAndSubdivisions($district_id)
-{
-    $this->blocks = Block::where('district_code', $district_id)->get();
-    $this->subdivisions = SubDistrict::where('district_code', $district_id)->get();
-}
+        // Clear blocks and subdivisions if no district is selected
+        if (!$district_id) {
+            $this->blocks = [];
+            $this->subdivisions = [];
+            return;
+        }
+
+        // Load blocks and subdivisions based on the selected district
+        $this->loadBlocksAndSubdivisions($district_id);
+    }
+
+    protected function loadBlocksAndSubdivisions($district_id)
+    {
+        $this->blocks = Block::where('district_code', $district_id)->get();
+        $this->subdivisions = SubDistrict::where('district_code', $district_id)->get();
+    }
 
     public function loadUserData()
     {
@@ -110,7 +111,7 @@ protected function loadBlocksAndSubdivisions($district_id)
             ->where('users.id', $this->userId) // Fetch user based on userId
             ->where(function ($query) {
                 $query->where('users.is_deleted', false)
-                      ->orWhereNull('users.is_deleted'); // Include only active users
+                    ->orWhereNull('users.is_deleted'); // Include only active users
             })
             ->groupBy(
                 'users.id',
@@ -130,7 +131,7 @@ protected function loadBlocksAndSubdivisions($district_id)
                 'm_sub_district.sub_district_code'
             )
             ->first(); // Get the first result
-            //dd($user);
+        //dd($user);
         if ($user) {
             // Load user data into properties
             $this->fullname = $user->full_name ?? null; // Adjust if full_name is not in the query
@@ -150,25 +151,53 @@ protected function loadBlocksAndSubdivisions($district_id)
         }
     }
 
-public function loadUserDutyAssignments($userId)
+    public function loadUserDutyAssignments($userId)
     {
         $assignments = DutyAssignement::where('user_id', $userId)->get();
         $this->schemelist = $assignments->pluck('scheme_id')->toArray();
     }
 
-    protected $rules = [
-        'fullname' => 'required|max:60',
-        'username' => 'required',
-        'email' => 'required|email',
-        'mobile' => 'required|digits:10',
-        'role_id' => 'required',
-        'user_level_id' => 'required',
-        'schemelist' => 'required|array|min:1',
-    ];
 
     public function submit()
     {
-        $this->validate();
+        // Define the validation rules
+        $rules = [
+            'fullname' => 'required|max:60',
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->userId, // Unique validation excluding current user
+            'mobile' => 'required|digits:10|unique:users,mobile_no,' . $this->userId, // Unique validation excluding current user
+            'role_id' => 'required',
+            'user_level_id' => 'required',
+            'schemelist' => 'required|array|min:1',
+        ];
+
+        // Define custom validation messages
+        $messages = [
+            'email.unique' => 'This email address is already registered.',
+            'mobile.unique' => 'This mobile number is already registered.',
+        ];
+
+        // Manually validate the data
+        $validator = Validator::make([
+        'fullname' => $this->fullname,
+        'username' => $this->username,
+        'email' => $this->email,
+        'mobile' => $this->mobile,
+        'role_id' => $this->role_id,
+        'user_level_id' => $this->user_level_id,
+        'schemelist' => $this->schemelist,
+    ], $rules, $messages);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            // Redirect back with errors and input if validation fails
+            $messages = $validator->messages();
+            if($messages->first('email'))
+             session()->flash('ErrorEmail', $messages->first('email'));
+            if($messages->first('mobile'))
+             session()->flash('ErrorMmobile', $messages->first('mobile'));
+            return back()->withErrors($validator)->withInput();
+        }
 
         // Update the user
         $user = User::find($this->userId);
@@ -218,7 +247,7 @@ public function loadUserDutyAssignments($userId)
 
             Session::flash('success', 'User and duty assignments updated successfully!');
             return redirect()->route('editUserForm', ['id' => $user->id])
-                         ->with('success', 'User and duty assignments updated successfully!');
+                ->with('success', 'User and duty assignments updated successfully!');
         }
     }
 
@@ -238,24 +267,24 @@ public function loadUserDutyAssignments($userId)
     }
 
     public function updatedUserLevelId($user_level_id)
-{
-    // Reset district, block, and subdivision values when user level changes
-    $this->district_id = null;
-    $this->block_id = null;
-    $this->subdivision_id = null;
+    {
+        // Reset district, block, and subdivision values when user level changes
+        $this->district_id = null;
+        $this->block_id = null;
+        $this->subdivision_id = null;
 
-    // Only clear blocks and subdivisions here
-    $this->blocks = [];
-    $this->subdivisions = [];
+        // Only clear blocks and subdivisions here
+        $this->blocks = [];
+        $this->subdivisions = [];
 
-    // Maintain districts and populate based on user level, if required
-    if (!$this->districts) {
-        $this->districts = District::all();
+        // Maintain districts and populate based on user level, if required
+        if (!$this->districts) {
+            $this->districts = District::all();
+        }
+
+        // Optionally call filterRolesByUserLevel to adjust roles
+        $this->filterRolesByUserLevel($user_level_id);
     }
-
-    // Optionally call filterRolesByUserLevel to adjust roles
-    $this->filterRolesByUserLevel($user_level_id);
-}
 
 
     public function getDropdownStates()
@@ -281,8 +310,7 @@ public function loadUserDutyAssignments($userId)
                     $states['district'] = true;
                     $states['block'] = true;
                     $states['subdivision'] = false;
-                }
-                elseif ($selectedUserLevel->stake_code === 'Subdiv') {
+                } elseif ($selectedUserLevel->stake_code === 'Subdiv') {
                     $states['district'] = true;
                     $states['block'] = false;
                     $states['subdivision'] = true;

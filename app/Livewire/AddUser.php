@@ -98,11 +98,15 @@ class AddUser extends Component
         'fullname' => 'required|max:60',
         'username' => 'required',
         'password' => 'required',
-        'email' => 'required|email',
-        'mobile' => 'required|digits:10',
+        'email' => 'required|email|unique:users,email',
+        'mobile' => 'required|digits:10|unique:users,mobile_no',
         'role_id' => 'required',
         'user_level_id' => 'required',
         'schemelist' => 'required|array|min:1', // Ensure at least one scheme is selected
+    ];
+    protected $messages = [
+        'email.unique' => 'This email address is already registered.',
+        'mobile.unique' => 'This mobile number is already registered.',
     ];
 
     public function submit()
@@ -158,7 +162,7 @@ class AddUser extends Component
         // Redirect back to the same page
         return redirect()->route('dutymanagementForm')->with('success', 'User and duty assignments added successfully!');
     }
-    
+
     public function filterRolesByUserLevel($user_level_id)
     {
         // Reset the roles array
