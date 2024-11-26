@@ -15,7 +15,7 @@ class workflowController extends Controller
       if ($designation_id != 'Operator') {
         return redirect('/')->with('error', 'Not Allowded');
       }
-  
+
       $return_arr = array();
       $schemes_arr_all = Scheme::where('is_active', 1)->orderBy('rank')->get();
       $user_id = (int) $user_id; // Ensure user_id is an integer to prevent SQL injection

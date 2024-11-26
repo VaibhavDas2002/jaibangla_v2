@@ -47,16 +47,20 @@
                             <label for="email" class="col-md-4 control-label required-field">Email</label>
                             <div class="col-md-6">
                                 <input id="email" name="email" type="email" class="form-control" wire:model="email" autocomplete="off">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="mobile" class="col-md-4 control-label required-field">Mobile No.</label>
                             <div class="col-md-6">
                                 <input id="mobile" name="mobile_no" type="text" class="form-control" wire:model="mobile" maxlength="10" autocomplete="off">
+                                @error('mobile')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="password" class="col-md-4 control-label required-field">Password</label>
                             <div class="col-md-6">
