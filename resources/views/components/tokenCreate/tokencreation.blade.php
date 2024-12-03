@@ -165,12 +165,17 @@
                                     resultsHtml += '<td>' + result.mobile_no + '</td>';
                                     resultsHtml += '<td>' + result.aadhar_no + '</td>';
                                     resultsHtml +=
-                                        '<td><button type="button" class="btn btn-primary add-btn" data-id="' +
-                                        result.id + '" data-name="' + result.ben_fname +
-                                        ' ' + result.ben_mname + ' ' + result.ben_lname +
-                                        '" data-mobile="' + result.mobile_no +
-                                        '" data-aadhar="' + result.aadhar_no +
-                                        '">Add to Modify</button></td>';
+                                        '<td>' +
+                                        (result.process_edit_status === 1 ?
+                                            '<span class="badge bg-secondary">Under Process</span>' :
+                                            '<button type="button" class="btn btn-primary add-btn" data-id="' +
+                                            result.id + '" data-name="' + result.ben_fname +
+                                            ' ' + result.ben_mname + ' ' + result
+                                            .ben_lname +
+                                            '" data-mobile="' + result.mobile_no +
+                                            '" data-aadhar="' + result.aadhar_no +
+                                            '">Add to Modify</button>') +
+                                        '</td>';
                                     resultsHtml += '</tr>';
                                 });
                                 resultsHtml += '</table>';
@@ -280,40 +285,40 @@
             //     });
             // });
             $('#finalSubmit').on('click', function() {
-                    if (addedRecords.length === 0) {
-                        alert("No records to submit.");
-                        showError("No records to submit.");
-                        return;
+                if (addedRecords.length === 0) {
+                    alert("No records to submit.");
+                    showError("No records to submit.");
+                    return;
+                }
+                // Show confirmation modal
+                $('#confirmationModal').modal('show');
+            });
+
+            $('#confirmSubmit').on('click', function() {
+                var token = $('input[name="_token"]').val();
+                var schemes = $('#schemes').val();
+
+                $('#confirmationModal').modal('hide');
+
+                $.ajax({
+                    url: "{{ route('finalSubmit') }}", // Define this route in your web.php
+                    type: "POST",
+                    data: {
+                        _token: token,
+                        records: addedRecords,
+                        schemes: schemes
+                    },
+                    success: function(response) {
+                        $('#errorMessage').hide();
+                        alert("Records submitted successfully!");
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        alert("An error occurred while submitting the records.");
+                        showError("An error occurred while submitting the records.");
                     }
-                    // Show confirmation modal
-                    $('#confirmationModal').modal('show');
                 });
-
-                $('#confirmSubmit').on('click', function() {
-                    var token = $('input[name="_token"]').val();
-                    var schemes = $('#schemes').val();
-
-                    $('#confirmationModal').modal('hide');
-
-                    $.ajax({
-                        url: "{{ route('finalSubmit') }}", // Define this route in your web.php
-                        type: "POST",
-                        data: {
-                            _token: token,
-                            records: addedRecords,
-                            schemes: schemes
-                        },
-                        success: function(response) {
-                            $('#errorMessage').hide();
-                            alert("Records submitted successfully!");
-                            window.location.reload();
-                        },
-                        error: function(xhr) {
-                            alert("An error occurred while submitting the records.");
-                            showError("An error occurred while submitting the records.");
-                        }
-                    });
-                });
+            });
             // });
         </script>
     </x-slot>

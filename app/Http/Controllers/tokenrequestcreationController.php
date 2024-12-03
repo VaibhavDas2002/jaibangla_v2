@@ -42,6 +42,7 @@ class tokenrequestcreationController extends Controller
     public function finalSubmit(Request $request)
     {
         //dd('kyfk');
+        $updateData['process_edit_status'] = 1;
         $records = $request->input('records');
         $tokenId = random_int(100000, 999999); // Generate a random token
         foreach ($records as $record) {
@@ -66,6 +67,7 @@ class tokenrequestcreationController extends Controller
                     'updated_at' => now(),
                 ]);
             }
+            DB::table('pension.beneficiaries')->where('id', $beneficiaryId)->update($updateData);
         }
         return response()->json(['success' => 'Records submitted successfully']);
     }

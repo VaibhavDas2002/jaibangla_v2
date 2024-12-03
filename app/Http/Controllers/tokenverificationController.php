@@ -135,7 +135,9 @@ class tokenverificationController extends Controller
         // Get inputs from the request
         $tokenId = $request->input('token_id');
         $action = $request->input('action');
-
+        if (!$tokenId) {
+            return response()->json(['success' => false, 'message' => 'Token not found.'], 404);
+        }
         // Define valid actions based on user roles
         $roleActions = [
             2 => [1, 2, 0], // Verifier: Pending (1), Verified (2), Rejected (0)
@@ -149,9 +151,16 @@ class tokenverificationController extends Controller
         }
 
         // Ensure the token exists
-        $token = DB::table('beneficiary_modifications')->where('token_id', $tokenId)->first();
-        if (!$token) {
-            return response()->json(['success' => false, 'message' => 'Token not found.'], 404);
+        $token = DB::table('beneficiary_modifications')
+            ->where('token_id', $tokenId)
+            ->distinct()
+            ->get(['beneficiary_id']);
+
+        //dd($token);
+        foreach ($token as $ben_person) {
+            DB::table('pension.beneficiaries')
+                ->where('id', $ben_person->beneficiary_id)
+                ->update(['process_edit_status' => 0]);
         }
 
         // Prepare update data
@@ -167,10 +176,10 @@ class tokenverificationController extends Controller
         DB::table('beneficiary_modifications')
             ->where('token_id', $tokenId)
             ->update($updateData);
-
+        // $updatebenSatus['process_edit_status'] = 1;
+        // DB::table('pension.beneficiaries')->where('id', $beneficiaryId)->update($updatebenSatus);
         // Return success response
         $actionLabel = ($action == 0) ? 'Rejected' : (($action == 2) ? 'Verified' : 'Approved');
         return response()->json(['success' => true, 'status' => $action, 'message' => "Token successfully {$actionLabel}."]);
     }
-
 }
