@@ -124,6 +124,17 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql_encwrite' => [
+            'driver' => 'pgsql',
+            'host' => 'localhost',
+            'port' => '5432',
+            'database' => 'jaibangla_new',
+            'username' => env('DB_USERNAME', 'postgres'),
+            'password' => env('DB_PASSWORD', 'root'),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
     ],
 
     /*
