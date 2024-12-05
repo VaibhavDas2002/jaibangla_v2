@@ -11,7 +11,8 @@ use App\Http\Controllers\{
     dutymanagementController,
     tokenrequestcreationController,
     tokenverificationController,
-    editBeneficiaryController
+    editBeneficiaryController,
+    editVerificationController
 };
 
 
@@ -74,3 +75,8 @@ Route::get('/edit-beneficiary', [editBeneficiaryController::class, 'editBenefici
 Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplicants'])->name('findApplicants');
 Route::get('/beneficiary-edit', [editBeneficiaryController::class, 'editBeneficiaryPage'])->name('editBeneficiaryPage');
 Route::post('update-Beneficiary', [editBeneficiaryController::class,'handleDocumentUpload' ] )->name('updateBeneficiary');
+
+//Edit Verification
+Route::get('editVerification', [editVerificationController::class,'editVerification']);
+Route::post('/beneficiaries/update-status', [EditVerificationController::class, 'updateStatus'])->name('beneficiaries.update-status');
+Route::post('/bulk-action', [EditVerificationController::class, 'bulkAction'])->name('bulkAction');
