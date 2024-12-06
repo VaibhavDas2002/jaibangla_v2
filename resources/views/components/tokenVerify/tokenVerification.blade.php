@@ -261,6 +261,7 @@
                 });
             });
 
+            
             document.querySelectorAll('.Approve-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     let tokenId = this.dataset.id;
