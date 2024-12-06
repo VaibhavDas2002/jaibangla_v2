@@ -7,7 +7,13 @@ use App\Http\Controllers\{
     PolicyController,
     UserManualController,
     EntryFormController,
-    reportController
+    workflowController,
+    dutymanagementController,
+    editBeneficiaryController,
+    reportController,
+    tokenrequestcreationController,
+    tokenverificationController,
+    editVerificationController,
 };
 
 
@@ -47,23 +53,40 @@ Route::get('download_user_manual', [UserManualController::class, 'downloadstatic
 Route::get('entryformoption', [EntryFormController::class, 'SelectScheme']);
 Route::get('formEntry', [EntryFormController::class, 'FormEntry'])->name('formEntry');
 
+Route::post('JBFormStore/{scheme_id?}', [EntryFormController::class, 'store'])->name('JBFormStore');
+//workflow
+Route::get('workflow', [workflowController::class, 'SelectScheme']);
+Route::get('workflowFrom', [workflowController::class, 'workflowFrom'])->name('workflowFrom');
+//dutymanagement
+Route::get('dutymanagement', [dutymanagementController::class, 'managemntPage']);
+Route::get('dutymanagementForm', [dutymanagementController::class, 'dutymanagementForm'])->name('dutymanagementForm');
+Route::get('editUserForm/{id}', [DutymanagementController::class, 'editUserForm'])->name('editUserForm');
+//token request create
+Route::get('tokencreation', [tokenrequestcreationController::class, 'tokenCreation']);
+Route::post('/search-beneficiaries', [TokenRequestCreationController::class, 'searchBeneficiaries'])->name('searchBeneficiaries');
+Route::post('/finalSubmit', [tokenrequestcreationController::class, 'finalSubmit'])->name('finalSubmit');
+//token verification
+Route::get('tokenVerification', [tokenverificationController::class, 'tokenVerification']);
+Route::get('/token-details/{token_id}', [tokenverificationController::class, 'getTokenDetails']);
+Route::post('/token/bulk-action', [tokenverificationController::class, 'bulkAction'])->name('token.bulk.action');
+Route::post('/token/update-status', [tokenverificationController::class, 'updateStatus'])->name('token.update.status');
+Route::get('/token-verification', [tokenverificationController::class, 'tokenVerification'])->name('token.verification');
 
 
-
-
-
-
-
-
-
-
+// Edit Beneficiary Page
+Route::get('/edit-beneficiary', [editBeneficiaryController::class, 'editBeneficiary'])->name('editBeneficiary');
+Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplicants'])->name('findApplicants');
+Route::get('/beneficiary-edit', [editBeneficiaryController::class, 'editBeneficiaryPage'])->name('editBeneficiaryPage');
+Route::post('update-Beneficiary', [editBeneficiaryController::class,'handleDocumentUpload' ] )->name('updateBeneficiary');
 
 
 // SelectReport
-// Sk Routes here
 Route::get('gotoReport', [reportController::class, 'SelectReport'])->name('SelectReport');
 Route::get('/generate-report', [reportController::class, 'generateReport'])->name('generate_report');
 Route::get('filterReport', [reportController::class, 'filterReport'])->name('filterReport');
 Route::get('applicantReport', [reportController::class, 'applicantReport'])->name('applicantReport');
 
-// ends here
+//Edit Verification
+Route::get('editVerification', [editVerificationController::class,'editVerification']);
+Route::post('/beneficiaries/update-status', [editVerificationController::class, 'updateStatus'])->name('beneficiaries.update-status');
+Route::post('/bulk-action', [editVerificationController::class, 'bulkAction'])->name('bulkAction');

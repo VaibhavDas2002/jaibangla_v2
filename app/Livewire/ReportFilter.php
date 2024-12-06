@@ -12,6 +12,7 @@ use App\Models\Ward;
 use App\Models\BenPersonalDetail;
 use App\Models\BenBankDetail;
 use App\Models\BenContactDetail;
+use Illuminate\Support\Facades\DB;
 
 class ReportFilter extends Component
 {
@@ -44,23 +45,8 @@ class ReportFilter extends Component
 
     public function loadBeneficiaries()
     {
-        $this->beneficiaries = BenPersonalDetail::join('ben_bank_details', 'ben_personal_details.id', '=', 'ben_bank_details.ben_id')
-            ->join('ben_contact_details', 'ben_personal_details.id', '=', 'ben_contact_details.ben_id')
-            ->join('m_district', 'm_district.district_code', '=', 'ben_contact_details.dist_code')
-            ->select(
-                'ben_personal_details.ben_fname',
-                'ben_personal_details.ben_mname',
-                'ben_personal_details.ben_lname',
-                'ben_personal_details.mobile_no',
-                'ben_bank_details.bank_ifsc',
-                'ben_bank_details.bank_code',
-                'ben_contact_details.block_ulb_name',
-                'ben_contact_details.gp_ward_name',
-                'ben_contact_details.village_town',
-                'ben_contact_details.house_premise_no',
-                'm_district.district_name'
-            )
-            ->get();
+        $this->beneficiaries = DB::table('pension.beneficiaries')->get();
+        dd($this->beneficiaries);
     }
 
     public function updatedFilters()

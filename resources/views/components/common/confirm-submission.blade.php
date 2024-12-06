@@ -21,8 +21,8 @@
     }
 </style>
 <div class="modal modal-xl fade" id="confirm-submit" tabindex="-1" aria-labelledby="confirmSubmitLabel"
-    data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
+    data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" wire:model="showModal">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmSubmitLabel">Confirm Submission</h5>
@@ -444,12 +444,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer text-center" style="text-align: center;">
-
-            <button type="reset" class="btn btn-danger btn-lg">Reset</button>
-            <button type="button" id="submit-btn" class="btn btn-success btn-lg modal-submit" data-bs-dismiss="modal"
-                aria-label="Close">Submit</button>
+            <div class="modal-footer text-center" style="text-align: center;">
+                <button type="reset" class="btn btn-danger btn-lg">Reset</button>
+                <button id="submit-btn" type="submit" class="btn btn-success btn-lg modal-submit">Submit</button>
+            </div>
         </div>
     </div>
 </div>

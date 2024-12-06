@@ -55,78 +55,59 @@
                 </div>
             </div>
             <br />
-            <div class="form-group col-12">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="cur_per_same" id="cur_per_same" value="1"
-                        tabindex="12" @if(old('cur_per_same') == 1) checked @endif> Same as Permanent Address
-                </label>
+
+            @if ($scheme_id == 17)
 
 
-            </div>
-            <br />
-            <div class="row" id="cur_address">
-                @livewire('lgd-filter-cur')
-                <div class="mb-3 col-md-4">
-                    <label for="village_cur" class="form-label required">Village/Town/City</label>
-                    <input type="text" id="village_cur" name="village_cur" class="form-control is-required"
-                        placeholder="Village/Town/City" maxlength="300" value="{{ old('village_cur') }}" tabindex="19">
-                    <div id="error_village_cur" class="text-danger d-none">Village/Town/City is required</div>
-                    <span id="value_village_cur" class="fw-medium d-none"></span>
+                <div class="form-group col-12">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="cur_per_same" id="cur_per_same" value="1"
+                            tabindex="12" @if(old('cur_per_same') == 1) checked @endif> Same as Permanent Address
+                    </label>
+
+
                 </div>
-                <div class="mb-3 col-md-4">
-                    <label for="house_cur" class="form-label">House/Premise Number</label>
-                    <input type="text" id="house_cur" name="house_cur" class="form-control"
-                        placeholder="House/Premise No." maxlength="300" value="{{ old('house_cur') }}" tabindex="20">
-                    <div id="error_house_cur" class="text-danger"></div>
-                    <span id="value_house_cur" class="fw-medium d-none"></span>
+                <br />
+                <div class="row" id="cur_address">
+                    @livewire('lgd-filter-cur')
+                    <div class="mb-3 col-md-4">
+                        <label for="village_cur" class="form-label required">Village/Town/City</label>
+                        <input type="text" id="village_cur" name="village_cur" class="form-control is-required"
+                            placeholder="Village/Town/City" maxlength="300" value="{{ old('village_cur') }}" tabindex="19">
+                        <div id="error_village_cur" class="text-danger d-none">Village/Town/City is required</div>
+                        <span id="value_village_cur" class="fw-medium d-none"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="house_cur" class="form-label">House/Premise Number</label>
+                        <input type="text" id="house_cur" name="house_cur" class="form-control"
+                            placeholder="House/Premise No." maxlength="300" value="{{ old('house_cur') }}" tabindex="20">
+                        <div id="error_house_cur" class="text-danger"></div>
+                        <span id="value_house_cur" class="fw-medium d-none"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="post_office_cur" class="form-label required">Post Office</label>
+                        <input type="text" id="post_office_cur" name="post_office_cur" class="form-control is-required"
+                            placeholder="Post Office" maxlength="300" value="{{ old('post_office_cur') }}" tabindex="21">
+                        <div id="error_post_office_cur" class="text-danger d-none">Post office is required</div>
+                        <span id="value_post_office_cur" class="fw-medium d-none"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="pin_code_cur" class="form-label required">Pin Code</label>
+                        <input type="text" id="pin_code_cur" name="pin_code_cur" class="form-control is-required"
+                            placeholder="Pin Code" maxlength="6" value="{{ old('pin_code_cur') }}" tabindex="22">
+                        <div id="error_pin_code_cur" class="text-danger d-none">PIN Code is Required</div>
+                        <span id="value_pin_code_curr" class="fw-medium d-none"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="police_station_cur" class="form-label required">Police Station</label>
+                        <input type="text" id="police_station_cur" name="police_station_cur" class="form-control"
+                            placeholder="Police Station" maxlength="200" value="{{ old('police_station_cur') }}"
+                            tabindex="23">
+                        <div id="error_police_station_cur" class="text-danger d-none">Police Station is required</div>
+                        <span id="value_police_station_cur" class="fw-medium d-none"></span>
+                    </div>
                 </div>
-                <div class="mb-3 col-md-4">
-                    <label for="post_office_cur" class="form-label required">Post Office</label>
-                    <input type="text" id="post_office_cur" name="post_office_cur" class="form-control is-required"
-                        placeholder="Post Office" maxlength="300" value="{{ old('post_office_cur') }}" tabindex="21">
-                    <div id="error_post_office_cur" class="text-danger d-none">Post office is required</div>
-                    <span id="value_post_office_cur" class="fw-medium d-none"></span>
-                </div>
-                <div class="mb-3 col-md-4">
-                    <label for="pin_code_cur" class="form-label required">Pin Code</label>
-                    <input type="text" id="pin_code_cur" name="pin_code_cur" class="form-control is-required"
-                        placeholder="Pin Code" maxlength="6" value="{{ old('pin_code_cur') }}" tabindex="22">
-                    <div id="error_pin_code_cur" class="text-danger d-none">PIN Code is Required</div>
-                    <span id="value_pin_code_curr" class="fw-medium d-none"></span>
-                </div>
-                <div class="mb-3 col-md-4">
-                    <label for="police_station_cur" class="form-label required">Police Station</label>
-                    <input type="text" id="police_station_cur" name="police_station_cur" class="form-control"
-                        placeholder="Police Station" maxlength="200" value="{{ old('police_station_cur') }}"
-                        tabindex="23">
-                    <div id="error_police_station_cur" class="text-danger d-none">Police Station is required</div>
-                    <span id="value_police_station_cur" class="fw-medium d-none"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="mb-3 col-md-4">
-                    <label for="residency_period" class="form-label">Number of years Dwelling in WB</label>
-                    <input type="text" id="residency_period" name="residency_period" class="form-control" maxlength="3"
-                        placeholder="Number of years Dwelling in WB" value="{{ old('residency_period') }}"
-                        tabindex="24">
-                    <div id="error_residency_period" class="text-danger"></div>
-                    <span id="value_residency_period" class="fw-medium d-none"></span>
-                </div>
-                <div class="mb-3 col-md-4">
-                    <label for="mobile_no" class="form-label required">Mobile Number</label>
-                    <input type="text" id="mobile_no" name="mobile_no" class="form-control is-required"
-                        placeholder="Mobile No" maxlength="10" value="{{ old('mobile_no') }}" tabindex="25">
-                    <div id="error_mobile_no" class="text-danger d-none">Mobile Number is required</div>
-                    <span id="value_mobile_no" class="fw-medium d-none"></span>
-                </div>
-                <div class="mb-3 col-md-4">
-                    <label for="email" class="form-label">Email Id</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email Id."
-                        maxlength="200" value="{{ old('email') }}" tabindex="26">
-                    <div id="error_email" class="text-danger"></div>
-                    <span id="value_email" class="fw-medium d-none"></span>
-                </div>
-            </div>
+            @endif
             <div class="d-flex flex-column justify-content-end">
                 <div class="d-flex justify-content-between">
                     <button type="button" name="previous_btn_contact_details" id="previous_btn_contact_details"
@@ -279,79 +260,59 @@
 
         function updateFields() {
             var isChecked = curPerSame.checked;
-            if (isChecked) {
-                districtCur.disabled = true;
-                asmbConsCur.disabled = true;
-                urbanCodeCur.disabled = true;
-                blockCur.disabled = true;
-                gpWardCur.disabled = true;
-                villageCur.readOnly = true;
-                houseCur.readOnly = true;
-                postOfficeCur.readOnly = true;
-                pinCodeCur.readOnly = true;
-                policeStationCur.readOnly = true;
+            var fieldsToDisable = [
+                districtCur, asmbConsCur, urbanCodeCur, blockCur, gpWardCur,
+                villageCur, houseCur, postOfficeCur, pinCodeCur, policeStationCur
+            ];
+            fieldsToDisable.forEach(function (field) {
+                field.disabled = isChecked;
+                if (field.tagName === 'INPUT') {
+                    field.readOnly = isChecked;
+                }
+            });
 
+            if (isChecked) {
                 districtCur.value = district.value;
-                asmbConsCur.innerHTML = '';
-                Array.from(asmbCons.options).forEach(function (option) {
-                    var newOption = document.createElement('option');
-                    newOption.value = option.value;
-                    newOption.textContent = option.textContent;
-                    asmbConsCur.appendChild(newOption);
-                });
+                copySelectOptions(asmbCons, asmbConsCur);
                 asmbConsCur.value = asmbCons.value;
                 urbanCodeCur.value = urbanCode.value;
-
-                blockCur.innerHTML = '';
-                Array.from(block.options).forEach(function (option) {
-                    var newOption = document.createElement('option');
-                    newOption.value = option.value;
-                    newOption.textContent = option.textContent;
-                    blockCur.appendChild(newOption);
-                });
+                copySelectOptions(block, blockCur);
                 blockCur.value = block.value;
-
-                gpWardCur.innerHTML = '';
-                Array.from(gpWard.options).forEach(function (option) {
-                    var newOption = document.createElement('option');
-                    newOption.value = option.value;
-                    newOption.textContent = option.textContent;
-                    gpWardCur.appendChild(newOption);
-                });
+                copySelectOptions(gpWard, gpWardCur);
                 gpWardCur.value = gpWard.value;
-
                 villageCur.value = village.value;
                 houseCur.value = house.value;
                 postOfficeCur.value = postOffice.value;
                 pinCodeCur.value = pinCode.value;
                 policeStationCur.value = policeStation.value;
             } else {
-                districtCur.disabled = false;
-                asmbConsCur.disabled = false;
-                urbanCodeCur.disabled = false;
-                blockCur.disabled = false;
-                gpWardCur.disabled = false;
-                villageCur.readOnly = false;
-                houseCur.readOnly = false;
-                postOfficeCur.readOnly = false;
-                pinCodeCur.readOnly = false;
-                policeStationCur.readOnly = false;
-
-                districtCur.value = '';
-                asmbConsCur.value = '';
-                urbanCodeCur.value = '';
-                blockCur.value = '';
-                gpWardCur.value = '';
-                villageCur.value = '';
-                houseCur.value = '';
-                postOfficeCur.value = '';
-                pinCodeCur.value = '';
-                policeStationCur.value = '';
+                clearFields(fieldsToDisable);
             }
+        }
+
+
+        function copySelectOptions(sourceSelect, targetSelect) {
+            targetSelect.innerHTML = '';
+            Array.from(sourceSelect.options).forEach(function (option) {
+                var newOption = document.createElement('option');
+                newOption.value = option.value;
+                newOption.textContent = option.textContent;
+                targetSelect.appendChild(newOption);
+            });
+        }
+        function clearFields(fields) {
+            fields.forEach(function (field) {
+                if (field.tagName === 'SELECT') {
+                    field.value = '';
+                } else {
+                    field.value = '';
+                }
+            });
         }
         updateFields();
         curPerSame.addEventListener('change', updateFields);
     });
+
     // // Contact Details -> ID Details (Previous)
     document.getElementById('previous_btn_contact_details').addEventListener('click', function () {
 

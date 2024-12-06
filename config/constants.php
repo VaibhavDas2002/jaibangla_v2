@@ -199,6 +199,21 @@ return [
 	'8' => array("scheme_id" => '8', "model_name" => 'PensionLPPRetainer', "scheme_name" => 'LPP Retainer'),
         '9' => array("scheme_id" => '9', "model_name" => 'PensionLPPPensioner', "scheme_name" => 'LPP Pensioner'),
     ],
+
+    'scheme_code' =>[
+        1 => 'Jai Johar(for ST)',
+        2 => 'Manabik for WCD',
+        3 => 'Toposili Bandhu(for SC)',
+        4 => 'Prachesta',
+        5 => 'Old Age Pension for Fishermen',
+        6 => 'MSME Pension',
+        7 => 'Textile Pension',
+        19 => 'Legacy Old Age Pension for ST',
+        10 => 'Old Age Pension WCD',
+        11 => 'Widow Pension WCD',
+        17 => 'Purohits Monthly Financial Assistance',
+        13 => 'Farmer Old Age Pension',
+    ],
     'schemeurl' => [
         1 => 'st',
         2 => 'manabik',
