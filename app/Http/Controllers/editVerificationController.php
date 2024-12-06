@@ -36,14 +36,15 @@ class EditVerificationController extends Controller
                     $updateData['is_changed'] = 0;  // Revert the record
                 }
 
-                DB::table('your_table_name')  // Replace with actual table name
+                DB::table('beneficiary_modifications')  // Replace with actual table name
                     ->where('token_id', $record['token_id'])
                     ->where('beneficiary_id', $record['beneficiary_id'])
                     ->update($updateData);
             }
 
             return response()->json(['message' => 'Action successfully completed.']);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred while updating records.'], 500);
         }
     }

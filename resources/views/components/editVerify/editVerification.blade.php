@@ -20,7 +20,15 @@
                     @endif
                 </select>
             </div>
-
+            <!-- Bulk Actions -->
+            <div class="mb-3">
+                @if (Auth::user()->role_id == 2 && $status == 1)
+                    <button id="bulk-verify" class="btn btn-success">Bulk Verify</button>
+                @endif
+                @if (Auth::user()->role_id == 3 && $status == 2)
+                    <button id="bulk-approve" class="btn btn-primary">Bulk Approve</button>
+                @endif
+            </div>
             <!-- Table with Records -->
             <table class="table table-bordered">
                 <thead>
@@ -45,10 +53,12 @@
                     @forelse($records as $record)
                         <tr>
                             @if (Auth::user()->role_id == 2 && $status == 1)
-                                <td><input type="checkbox" class="select-record" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}"></td>
+                                <td><input type="checkbox" class="select-record" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}"></td>
                             @endif
                             @if (Auth::user()->role_id == 3 && $status == 2)
-                                <td><input type="checkbox" class="select-record" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}"></td>
+                                <td><input type="checkbox" class="select-record" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}"></td>
                             @endif
                             <td>{{ $record->token_id }}</td>
                             <td>{{ $record->beneficiary_id }}</td>
@@ -78,12 +88,16 @@
                             </td>
                             <td>
                                 @if (Auth::user()->role_id == 2 && $record->is_changed == 1)
-                                    <button class="btn btn-success btn-verify" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}">Verify</button>
-                                    <button class="btn btn-danger btn-revert" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}">Revert</button>
+                                    <button class="btn btn-success btn-verify" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}">Verify</button>
+                                    <button class="btn btn-danger btn-revert" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}">Revert</button>
                                 @endif
                                 @if (Auth::user()->role_id == 3 && $record->is_changed == 2)
-                                    <button class="btn btn-primary btn-approve" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}">Approve</button>
-                                    <button class="btn btn-danger btn-revert" data-token-id="{{ $record->token_id }}" data-beneficiary-id="{{ $record->beneficiary_id }}">Revert</button>
+                                    <button class="btn btn-primary btn-approve" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}">Approve</button>
+                                    <button class="btn btn-danger btn-revert" data-token-id="{{ $record->token_id }}"
+                                        data-beneficiary-id="{{ $record->beneficiary_id }}">Revert</button>
                                 @endif
                             </td>
                         </tr>
@@ -133,6 +147,29 @@
                     // Perform the action to revert
                     updateStatus(tokenId, beneficiaryId, 'revert');
                 });
+                // Select All
+                $('#select-all').on('change', function() {
+                    $('.select-record').prop('checked', $(this).prop('checked'));
+                });
+
+                // Bulk Verify and Approve
+                $('#bulk-verify, #bulk-approve').on('click', function() {
+                    const selectedRecords = [];
+                    $('.select-record:checked').each(function() {
+                        selectedRecords.push({
+                            token_id: $(this).data('token-id'),
+                            beneficiary_id: $(this).data('beneficiary-id'),
+                        });
+                    });
+
+                    if (selectedRecords.length === 0) {
+                        alert('Please select at least one record.');
+                        return;
+                    }
+
+                    const action = this.id === 'bulk-verify' ? 'verify' : 'approve';
+                    performBulkAction(selectedRecords, action);
+                });
 
                 // Update the status based on the action (verify, approve, revert)
                 function updateStatus(tokenId, beneficiaryId, action) {
@@ -151,9 +188,9 @@
                             alert(response.message);
                             location.reload();
                         },
-                        error: function(error) {
-                            alert('An error occurred while performing the action.');
-                        }
+                        // error: function(error) {
+                        //     alert('An error occurred while performing the action.');
+                        // }
                     });
                 }
             });
