@@ -36,6 +36,7 @@ class tokenverificationController extends Controller
         $statusKey = $request->input('status', 'pending');
         $status = $roleStatusMapping[$statusKey] ?? reset($roleStatusMapping); // Default to the first status if invalid
 
+
         // Query the tokenPresent list
         $tokenPresent = DB::table('beneficiary_modifications')
             ->join('m_doc_modification', 'beneficiary_modifications.selected_documents_id', '=', 'm_doc_modification.id')
@@ -47,7 +48,7 @@ class tokenverificationController extends Controller
             )
             ->where('beneficiary_modifications.status', $status)
             ->groupBy('beneficiary_modifications.token_id', 'beneficiary_modifications.status')
-            ->paginate(5);
+            ->paginate(1);
 
         // Return the view with relevant data
         return view('components.tokenVerify.tokenVerification', compact('tokenPresent', 'status', 'statusKey', 'userRole'));
@@ -127,11 +128,9 @@ class tokenverificationController extends Controller
 
         // Fetch the current user's role details
         $currentUserRole = DB::table('designation')->where('id', $currentUser->role_id)->first();
-
         if (!$currentUserRole) {
             return response()->json(['success' => false, 'message' => 'User role not found.'], 404);
         }
-
         // Get inputs from the request
         $tokenId = $request->input('token_id');
         $action = $request->input('action');
@@ -156,17 +155,15 @@ class tokenverificationController extends Controller
             ->distinct()
             ->get(['beneficiary_id']);
 
-        //dd($token);
-        foreach ($token as $ben_person) {
-            DB::table('pension.beneficiaries')
-                ->where('id', $ben_person->beneficiary_id)
-                ->update(['process_edit_status' => 0]);
-        }
-
         // Prepare update data
         $updateData = ['status' => $action];
 
         if ($action == 0) { // Rejected case
+            foreach ($token as $ben_person) {
+                DB::table('pension.beneficiaries')->where('id', $ben_person->beneficiary_id)
+                    ->update(['process_edit_status' => 0]);
+            }
+
             $updateData['rejected_by_id'] = $currentUser->id;
             $updateData['rejected_by'] = $currentUserRole->name;
             $updateData['rejected_time'] = now();

@@ -1,6 +1,5 @@
 <x-app-layout>
     <x-slot name="title">
-        {{-- <h1>Token Verification</h1> --}}
         <h1>{{ Auth::user()->role_id == 2 ? 'Verifier Token' : 'Approver Token' }}</h1>
     </x-slot>
     <x-slot name="content">
@@ -10,120 +9,117 @@
                 <label for="status">Filter by Status:</label>
                 <select name="status" id="status" onchange="this.form.submit()">
                     @if (Auth::user()->role_id == 2)
-                        <option value="pending" {{ $status == '1' ? 'selected' : '' }}>Pending</option>
-                        <option value="verified" {{ $status == '2' ? 'selected' : '' }}>Verified</option>
-                        <option value="rejected" {{ $status == '0' ? 'selected' : '' }}>Rejected</option>
+                    <option value="pending" {{ $status == '1' ? 'selected' : '' }}>Pending</option>
+                    <option value="verified" {{ $status == '2' ? 'selected' : '' }}>Verified</option>
+                    <option value="rejected" {{ $status == '0' ? 'selected' : '' }}>Rejected</option>
                     @elseif(Auth::user()->role_id == 3)
-                        <option value="pending" {{ $status == '2' ? 'selected' : '' }}>Pending</option>
-                        <option value="approved" {{ $status == '3' ? 'selected' : '' }}>Approved</option>
-                        <option value="rejected" {{ $status == '0' ? 'selected' : '' }}>Rejected</option>
+                    <option value="pending" {{ $status == '2' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ $status == '3' ? 'selected' : '' }}>Approved</option>
+                    <option value="rejected" {{ $status == '0' ? 'selected' : '' }}>Rejected</option>
                     @endif
                 </select>
             </form>
             <form method="POST" action="{{ route('token.bulk.action') }}">
                 @csrf
                 @if (Auth::user()->role_id == 2 && $status == 1)
-                    <button type="submit" name="bulk_action" value="2" class="btn btn-primary my-2">
-                        Bulk Verify
-                    </button>
+                <button type="submit" name="bulk_action" value="2" class="btn btn-primary my-2">
+                    Bulk Verify
+                </button>
                 @endif
                 @if (Auth::user()->role_id == 3 && $status == 2)
-                    <button type="submit" name="bulk_action" value="3" class="btn btn-primary my-2">
-                        Bulk Approve
-                    </button>
+                <button type="submit" name="bulk_action" value="3" class="btn btn-primary my-2">
+                    Bulk Approve
+                </button>
                 @endif
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             @if (Auth::user()->role_id == 2 && $status == 1)
-                                <th>
-                                    <input type="checkbox" id="select-all">
-                                </th>
+                            <th>
+                                <input type="checkbox" id="select-all">
+                            </th>
                             @endif
                             @if (Auth::user()->role_id == 3 && $status == 2)
-                                <th>
-                                    <input type="checkbox" id="select-all">
-                                </th>
+                            <th>
+                                <input type="checkbox" id="select-all">
+                            </th>
                             @endif
-
                             <th>Token Number</th>
                             <th>Document Type</th>
                             <th>No.</th>
                             <th>Status</th>
                             @if (Auth::user()->role_id == 2 && $status == 1)
-                                <th>Action</th>
+                            <th>Action</th>
                             @endif
                             @if (Auth::user()->role_id == 3 && $status == 2)
-                                <th>Action</th>
+                            <th>Action</th>
                             @endif
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse ($tokenPresent as $token)
-                            <tr>
-                                @if (Auth::user()->role_id == 2 && $status == 1)
-                                    <td>
-                                        <input type="checkbox" name="token_ids[]" value="{{ $token->token_id }}">
-                                    </td>
+                        <tr>
+                            @if (Auth::user()->role_id == 2 && $status == 1)
+                            <td>
+                                <input type="checkbox" name="token_ids[]" value="{{ $token->token_id }}">
+                            </td>
+                            @endif
+                            @if (Auth::user()->role_id == 3 && $status == 2)
+                            <td>
+                                <input type="checkbox" name="token_ids[]" value="{{ $token->token_id }}">
+                            </td>
+                            @endif
+                            <td>{{ $token->token_id }}</td>
+                            <td>{{ $token->document_type }}</td>
+                            {{-- <td>{{ $token->beneficiary_count }}</td> --}}
+                            <td>
+                                <a href="#" class="view-details" data-id="{{ $token->token_id }}">
+                                    {{ $token->beneficiary_count }}
+                                </a>
+                            </td>
+                            <td>
+                                @if (Auth::user()->role_id == 2)
+                                @if ($token->status == 1)
+                                <span class="badge bg-warning">Pending</span>
+                                @elseif ($token->status == 2)
+                                <span class="badge bg-success">Verified</span>
+                                @elseif ($token->status == 0)
+                                <span class="badge bg-danger">Rejected</span>
+                                @else
+                                <span class="badge bg-secondary">Unknown</span>
                                 @endif
-                                @if (Auth::user()->role_id == 3 && $status == 2)
-                                    <td>
-                                        <input type="checkbox" name="token_ids[]" value="{{ $token->token_id }}">
-                                    </td>
                                 @endif
-                                <td>{{ $token->token_id }}</td>
-                                <td>{{ $token->document_type }}</td>
-                                {{-- <td>{{ $token->beneficiary_count }}</td> --}}
-                                <td>
-                                    <a href="#" class="view-details" data-id="{{ $token->token_id }}">
-                                        {{ $token->beneficiary_count }}
-                                    </a>
-                                </td>
-
-                                <td>
-                                    @if (Auth::user()->role_id == 2)
-                                        @if ($token->status == 1)
-                                            <span class="badge bg-warning">Pending</span>
-                                        @elseif ($token->status == 2)
-                                            <span class="badge bg-success">Verified</span>
-                                        @elseif ($token->status == 0)
-                                            <span class="badge bg-danger">Rejected</span>
-                                        @else
-                                            <span class="badge bg-secondary">Unknown</span>
-                                        @endif
-                                    @endif
-                                    @if (Auth::user()->role_id == 3)
-                                        @if ($token->status == 2)
-                                            <span class="badge bg-warning">Pending</span>
-                                        @elseif ($token->status == 3)
-                                            <span class="badge bg-success">Approved</span>
-                                        @elseif ($token->status == 0)
-                                            <span class="badge bg-danger">Rejected</span>
-                                        @else
-                                            <span class="badge bg-secondary">Unknown</span>
-                                        @endif
-                                    @endif
-                                </td>
-                                @if (Auth::user()->role_id == 2 && $status == 1)
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-sm Verify-btn"
-                                            data-id="{{ $token->token_id }}">Verify</button>
-                                        <button type="button" class="btn btn-danger btn-sm reject-btn"
-                                            data-id="{{ $token->token_id }}">Reject</button>
-                                    </td>
+                                @if (Auth::user()->role_id == 3)
+                                @if ($token->status == 2)
+                                <span class="badge bg-warning">Pending</span>
+                                @elseif ($token->status == 3)
+                                <span class="badge bg-success">Approved</span>
+                                @elseif ($token->status == 0)
+                                <span class="badge bg-danger">Rejected</span>
+                                @else
+                                <span class="badge bg-secondary">Unknown</span>
                                 @endif
-                                @if (Auth::user()->role_id == 3 && $status == 2)
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-sm Approve-btn"
-                                            data-id="{{ $token->token_id }}">Approve</button>
-                                        <button type="button" class="btn btn-danger btn-sm reject-btn"
-                                            data-id="{{ $token->token_id }}">Reject</button>
-                                    </td>
                                 @endif
-                            </tr>
+                            </td>
+                            @if (Auth::user()->role_id == 2 && $status == 1)
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm Verify-btn"
+                                    data-id="{{ $token->token_id }}">Verify</button>
+                                <button type="button" class="btn btn-danger btn-sm reject-btn"
+                                    data-id="{{ $token->token_id }}">Reject</button>
+                            </td>
+                            @endif
+                            @if (Auth::user()->role_id == 3 && $status == 2)
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm Approve-btn"
+                                    data-id="{{ $token->token_id }}">Approve</button>
+                                <button type="button" class="btn btn-danger btn-sm reject-btn"
+                                    data-id="{{ $token->token_id }}">Reject</button>
+                            </td>
+                            @endif
+                        </tr>
                         @empty
-                            <td colspan="6" class="mx-auto text-center"> No records found.</td>
+                        <td colspan="6" class="mx-auto text-center"> No records found.</td>
                         @endforelse
                     </tbody>
                 </table>
@@ -135,40 +131,40 @@
                         <ul class="pagination">
                             <!-- Previous Page Link -->
                             @if ($tokenPresent->onFirstPage())
-                                <li class="page-item disabled">
-                                    <span class="page-link">Previous</span>
-                                </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                            </li>
                             @else
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="{{ $tokenPresent->previousPageUrl() }}&status={{ $statusKey }}"
-                                        aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span> Previous
-                                    </a>
-                                </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="{{ $tokenPresent->previousPageUrl() }}&status={{ $statusKey }}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span> Previous
+                                </a>
+                            </li>
                             @endif
 
                             <!-- Page Numbers -->
                             @foreach ($tokenPresent->getUrlRange(1, $tokenPresent->lastPage()) as $page => $url)
-                                <li class="page-item {{ $page == $tokenPresent->currentPage() ? 'active' : '' }}">
-                                    <a class="page-link"
-                                        href="{{ $url }}&status={{ $statusKey }}">{{ $page }}</a>
-                                </li>
+                            <li class="page-item {{ $page == $tokenPresent->currentPage() ? 'active' : '' }}">
+                                <a class="page-link"
+                                    href="{{ $url }}&status={{ $statusKey }}">{{ $page }}</a>
+                            </li>
                             @endforeach
 
                             <!-- Next Page Link -->
                             @if ($tokenPresent->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="{{ $tokenPresent->nextPageUrl() }}&status={{ $statusKey }}"
-                                        aria-label="Next">
-                                        Next <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="{{ $tokenPresent->nextPageUrl() }}&status={{ $statusKey }}"
+                                    aria-label="Next">
+                                    Next <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
                             @else
-                                <li class="page-item disabled">
-                                    <span class="page-link">Next</span>
-                                </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Next</span>
+                            </li>
                             @endif
                         </ul>
                     </nav>
@@ -264,6 +260,7 @@
                     updateStatus(tokenId, 2);
                 });
             });
+
 
             document.querySelectorAll('.Approve-btn').forEach(button => {
                 button.addEventListener('click', function() {

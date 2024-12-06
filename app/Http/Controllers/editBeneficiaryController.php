@@ -27,7 +27,7 @@ class editBeneficiaryController extends Controller
 
         $criteria = $request->searchCriteria;
         $value = strtoupper($request->searchValue);
-        // dd($value , $criteria);    
+        // dd($value , $criteria);
 
         $records = DB::table('beneficiary_modifications')
             ->join('m_doc_modification', 'beneficiary_modifications.selected_documents_id', '=', 'm_doc_modification.id')
@@ -113,7 +113,7 @@ class editBeneficiaryController extends Controller
         $user_id = Auth::user()->id; // Replace with actual user ID fetch logic
         $selectedDocuments = $request->input('selected_documents'); // Array of selected document types
 
-        // Json data store for old benefiaries table 
+        // Json data store for old benefiaries table
         $oldRecord = DB::table('pension.beneficiaries')->where('id', $beneficiary_id)->first();
         if ($oldRecord) {
             $trimmedRecord = [];
@@ -185,33 +185,33 @@ class editBeneficiaryController extends Controller
                     'ben_lname' => 'required|string|max:255',
                 ];
             }
-        
+
             if ($doc_type_name === "Mobile No.") {
                 $specificRules = [
                     'mobile_number' => 'required|digits:10',
                 ];
             }
-        
+
             if ($doc_type_name === "Aadhar Information") {
                 $specificRules = [
                     'aadhar_number' => 'required|digits:12',
                 ];
             }
-        
+
             if ($doc_type_name === "Ration Card Information") {
                 $specificRules = [
                     'ration_card_cat' => 'required|string|max:255',
                     'ration_card_no' => 'required|string|max:255',
                 ];
             }
-        
+
             if ($doc_type_name === "Caste Certificate Information") {
                 $specificRules = [
                     'caste' => 'required|string|max:255',
                     'caste_certificate_no' => 'required|string|max:255',
                 ];
             }
-        
+
             if ($doc_type_name === "Bank Information") {
                 $specificRules = [
                     'bank_ifsc_code' => 'required|string|max:11',
@@ -220,11 +220,11 @@ class editBeneficiaryController extends Controller
                     'bank_account_number' => 'required|string|max:255',
                 ];
             }
-        
+
             // If there are specific rules, validate the input
             if (!empty($specificRules)) {
                 $validator = Validator::make($request->all(), $specificRules);
-        
+
                 if ($validator->fails()) {
                     return back()->with('error', "Missing or Invalid values for {$doc_type_name}. Please check the fields.");
                 }

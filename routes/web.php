@@ -9,10 +9,11 @@ use App\Http\Controllers\{
     EntryFormController,
     workflowController,
     dutymanagementController,
+    editBeneficiaryController,
+    reportController,
     tokenrequestcreationController,
     tokenverificationController,
-    editBeneficiaryController,
-    editVerificationController
+    editVerificationController,
 };
 
 
@@ -70,13 +71,21 @@ Route::post('/token/bulk-action', [tokenverificationController::class, 'bulkActi
 Route::post('/token/update-status', [tokenverificationController::class, 'updateStatus'])->name('token.update.status');
 Route::get('/token-verification', [tokenverificationController::class, 'tokenVerification'])->name('token.verification');
 
+
 // Edit Beneficiary Page
 Route::get('/edit-beneficiary', [editBeneficiaryController::class, 'editBeneficiary'])->name('editBeneficiary');
 Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplicants'])->name('findApplicants');
 Route::get('/beneficiary-edit', [editBeneficiaryController::class, 'editBeneficiaryPage'])->name('editBeneficiaryPage');
 Route::post('update-Beneficiary', [editBeneficiaryController::class,'handleDocumentUpload' ] )->name('updateBeneficiary');
 
+
+// SelectReport
+Route::get('gotoReport', [reportController::class, 'SelectReport'])->name('SelectReport');
+Route::get('/generate-report', [reportController::class, 'generateReport'])->name('generate_report');
+Route::get('filterReport', [reportController::class, 'filterReport'])->name('filterReport');
+Route::get('applicantReport', [reportController::class, 'applicantReport'])->name('applicantReport');
+
 //Edit Verification
 Route::get('editVerification', [editVerificationController::class,'editVerification']);
-Route::post('/beneficiaries/update-status', [EditVerificationController::class, 'updateStatus'])->name('beneficiaries.update-status');
-Route::post('/bulk-action', [EditVerificationController::class, 'bulkAction'])->name('bulkAction');
+Route::post('/beneficiaries/update-status', [editVerificationController::class, 'updateStatus'])->name('beneficiaries.update-status');
+Route::post('/bulk-action', [editVerificationController::class, 'bulkAction'])->name('bulkAction');

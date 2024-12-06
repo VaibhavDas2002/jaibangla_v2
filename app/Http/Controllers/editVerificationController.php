@@ -13,7 +13,7 @@ class EditVerificationController extends Controller
     {
         $records = $request->input('records', []);
         $action = $request->input('action', 'verify');
-
+        // dd($records, $action );
         if (empty($records)) {
             return response()->json(['message' => 'No records selected for action.'], 400);
         }
@@ -28,6 +28,7 @@ class EditVerificationController extends Controller
             foreach ($records as $record) {
                 $updateData = [];
 
+
                 if ($action == 'verify') {
                     $updateData['is_changed'] = 2;  // Set 'verified' for bulk verify
                 } elseif ($action == 'approve') {
@@ -40,6 +41,11 @@ class EditVerificationController extends Controller
                     ->where('token_id', $record['token_id'])
                     ->where('beneficiary_id', $record['beneficiary_id'])
                     ->update($updateData);
+
+                if($action == 'approve'){
+                    DB::table('pension.beneficiaries')->where('id', $record['beneficiary_id'])
+                    ->update(['process_edit_status'=>0]);
+                }
             }
 
             return response()->json(['message' => 'Action successfully completed.']);
@@ -97,7 +103,7 @@ class EditVerificationController extends Controller
                 'beneficiary_modifications.aadhar_no',
                 'beneficiary_modifications.is_changed'
             )
-            ->get();
+            ->paginate(1);
 
         // Return the view with the necessary data
         return view('components.editVerify.editVerification', compact('records', 'status', 'statusKey', 'userRole'));
