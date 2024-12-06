@@ -5,15 +5,15 @@
     <x-slot name="content">
 
         @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
         @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
         <section class="content row">
             <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
@@ -25,7 +25,7 @@
                     <select id="schemes" name="schemes" class="form-select">
                         <option value="">Select Search Scheme</option>
                         @foreach ($schemes as $scheme)
-                        <option value="{{ $scheme->id }}">{{ $scheme->scheme_name }}</option>
+                            <option value="{{ $scheme->id }}">{{ $scheme->scheme_name }}</option>
                         @endforeach
                     </select>
 
@@ -40,8 +40,10 @@
                         <option value="token_id">Token No</option>
                     </select>
 
-                    <label class="form-label mt-2" id="searchValueLabel" for="searchValue" style="display: none;">Enter Search Value:</label><br>
-                    <input class="form-control" type="text" id="searchValue" name="searchValue" style="display: none;" required>
+                    <label class="form-label mt-2" id="searchValueLabel" for="searchValue" style="display: none;">Enter
+                        Search Value:</label><br>
+                    <input class="form-control" type="text" id="searchValue" name="searchValue"
+                        style="display: none;" required>
                     <button type="button" id="submitSearch" class="m-2 btn btn-outline-success">Find Applicant</button>
                 </div>
 
@@ -78,7 +80,8 @@
                     const selectedCriteria = $(this).val();
                     if (selectedCriteria) {
                         $('#searchValueLabel, #searchValue').show();
-                        $('#searchValue').attr('placeholder', 'Enter ' + $(this).find('option:selected').text());
+                        $('#searchValue').attr('placeholder', 'Enter ' + $(this).find('option:selected')
+                    .text());
                     } else {
                         $('#searchValueLabel, #searchValue').hide();
                     }
@@ -91,7 +94,8 @@
                     const searchValue = $('#searchValue').val();
 
                     if (!schemeId || !searchCriteria || !searchValue) {
-                        $('#errorMessage').text('Please select a scheme, search criteria, and enter a search value.').show();
+                        $('#errorMessage').text(
+                            'Please select a scheme, search criteria, and enter a search value.').show();
                         return;
                     }
 
@@ -115,24 +119,28 @@
                             } else {
                                 $('#temporaryTableSection').show();
                                 data.forEach((record) => {
-                                    const buttonClass = record.is_changed === 1 ? 'btn-secondary' : 'btn-warning';
+                                    const buttonClass = record.is_changed === 1 ?
+                                        'btn-secondary' : 'btn-warning';
                                     tableBody.append(`
-                            <tr>
-                                <td>${record.beneficiary_id}</td>
-                                <td>${record.token_id}</td>
-                                <td>${record.beneficiary_name}</td>
-                                <td>${record.mobile_no}</td>
-                                <td>${record.aadhar_no}</td>
-                                <td>${record.selected_documents}</td>
-                                <td>
-                                    <button class="btn ${buttonClass} btn-sm edit-row"
-                                        data-token-id="${record.token_id}"
-                                        data-beneficiary-id="${record.beneficiary_id}" ${record.is_changed === 1 ? 'disabled' : ''}>
-                                        ${record.is_changed == 1 ? 'Under Process' : 'Edit'}
-                                    </button>
-                                </td>
-                            </tr>
-                        `);
+                                        <tr>
+                                            <td>${record.beneficiary_id}</td>
+                                            <td>${record.token_id}</td>
+                                            <td>${record.beneficiary_name}</td>
+                                            <td>${record.mobile_no}</td>
+                                            <td>${record.aadhar_no}</td>
+                                            <td>${record.selected_documents}</td>
+                                            <td>
+                                                ${record.is_changed === 1 || record.is_changed === 2
+                                                    ? '<span class="badge bg-secondary">Under Process</span>'
+                                                    : record.is_changed === 3
+                                                    ? '<span class="badge bg-success">Completed</span>'
+                                                    : '<button class="btn btn-warning btn-sm edit-row" data-token-id="' + record.token_id + '" data-beneficiary-id="' + record.beneficiary_id + '">Edit</button>'
+                                                }
+                                            </td>
+
+                                        </tr>
+
+                                    `);
                                 });
                             }
                         },
@@ -146,7 +154,8 @@
                 $(document).on('click', '.edit-row', function() {
                     const tokenId = $(this).data('token-id');
                     const beneficiaryId = $(this).data('beneficiary-id'); // Get the beneficiary_id
-                    window.location.href = "{{ route('editBeneficiaryPage') }}?token_id=" + tokenId + "&beneficiary_id=" + beneficiaryId;
+                    window.location.href = "{{ route('editBeneficiaryPage') }}?token_id=" + tokenId +
+                        "&beneficiary_id=" + beneficiaryId;
                 });
             });
         </script>

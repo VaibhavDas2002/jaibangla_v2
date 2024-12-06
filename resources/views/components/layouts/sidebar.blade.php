@@ -34,8 +34,8 @@
       <li class=""><a href="{{ url('/dutymanagement')}}"><i class="fa fa-link"></i><span>Duty Management</span></a></li>
       <li class=""><a href="{{ url('/tokencreation')}}"><i class="fa fa-link"></i><span>Token Create</span></a></li>
       <li class=""><a href="{{ url('/tokenVerification')}}"><i class="fa fa-link"></i><span>Token Verification</span></a></li>
-      
       <li class=""><a href="{{ route('editBeneficiary')}}"><i class="fa fa-link"></i><span> Edit Beneficiary</span></a></li>
+      <li class=""><a href="{{ url('/editVerification')}}"><i class="fa fa-link"></i><span> Edit Verification</span></a></li>
     </ul>
   </section>
 </aside>

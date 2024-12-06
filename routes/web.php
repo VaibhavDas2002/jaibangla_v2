@@ -12,7 +12,8 @@ use App\Http\Controllers\{
     editBeneficiaryController,
     reportController,
     tokenrequestcreationController,
-    tokenverificationController
+    tokenverificationController,
+    editVerificationController,
 };
 
 
@@ -74,7 +75,6 @@ Route::get('/token-verification', [tokenverificationController::class, 'tokenVer
 // Edit Beneficiary Page
 Route::get('/edit-beneficiary', [editBeneficiaryController::class, 'editBeneficiary'])->name('editBeneficiary');
 Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplicants'])->name('findApplicants');
-
 Route::get('/beneficiary-edit', [editBeneficiaryController::class, 'editBeneficiaryPage'])->name('editBeneficiaryPage');
 Route::post('update-Beneficiary', [editBeneficiaryController::class,'handleDocumentUpload' ] )->name('updateBeneficiary');
 
@@ -85,5 +85,7 @@ Route::get('/generate-report', [reportController::class, 'generateReport'])->nam
 Route::get('filterReport', [reportController::class, 'filterReport'])->name('filterReport');
 Route::get('applicantReport', [reportController::class, 'applicantReport'])->name('applicantReport');
 
-// ends here
-
+//Edit Verification
+Route::get('editVerification', [editVerificationController::class,'editVerification']);
+Route::post('/beneficiaries/update-status', [editVerificationController::class, 'updateStatus'])->name('beneficiaries.update-status');
+Route::post('/bulk-action', [editVerificationController::class, 'bulkAction'])->name('bulkAction');

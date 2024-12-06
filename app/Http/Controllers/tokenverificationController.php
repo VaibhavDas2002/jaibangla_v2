@@ -47,7 +47,7 @@ class tokenverificationController extends Controller
             )
             ->where('beneficiary_modifications.status', $status)
             ->groupBy('beneficiary_modifications.token_id', 'beneficiary_modifications.status')
-            ->paginate(5);
+            ->paginate(1);
 
         // Return the view with relevant data
         return view('components.tokenVerify.tokenVerification', compact('tokenPresent', 'status', 'statusKey', 'userRole'));
@@ -127,15 +127,15 @@ class tokenverificationController extends Controller
 
         // Fetch the current user's role details
         $currentUserRole = DB::table('designation')->where('id', $currentUser->role_id)->first();
-
         if (!$currentUserRole) {
             return response()->json(['success' => false, 'message' => 'User role not found.'], 404);
         }
-
         // Get inputs from the request
         $tokenId = $request->input('token_id');
         $action = $request->input('action');
-
+        if (!$tokenId) {
+            return response()->json(['success' => false, 'message' => 'Token not found.'], 404);
+        }
         // Define valid actions based on user roles
         $roleActions = [
             2 => [1, 2, 0], // Verifier: Pending (1), Verified (2), Rejected (0)
@@ -149,15 +149,20 @@ class tokenverificationController extends Controller
         }
 
         // Ensure the token exists
-        $token = DB::table('beneficiary_modifications')->where('token_id', $tokenId)->first();
-        if (!$token) {
-            return response()->json(['success' => false, 'message' => 'Token not found.'], 404);
-        }
+        $token = DB::table('beneficiary_modifications')
+            ->where('token_id', $tokenId)
+            ->distinct()
+            ->get(['beneficiary_id']);
 
         // Prepare update data
         $updateData = ['status' => $action];
 
         if ($action == 0) { // Rejected case
+            foreach ($token as $ben_person) {
+                DB::table('pension.beneficiaries')->where('id', $ben_person->beneficiary_id)
+                    ->update(['process_edit_status' => 0]);
+            }
+
             $updateData['rejected_by_id'] = $currentUser->id;
             $updateData['rejected_by'] = $currentUserRole->name;
             $updateData['rejected_time'] = now();
@@ -167,10 +172,10 @@ class tokenverificationController extends Controller
         DB::table('beneficiary_modifications')
             ->where('token_id', $tokenId)
             ->update($updateData);
-
+        // $updatebenSatus['process_edit_status'] = 1;
+        // DB::table('pension.beneficiaries')->where('id', $beneficiaryId)->update($updatebenSatus);
         // Return success response
         $actionLabel = ($action == 0) ? 'Rejected' : (($action == 2) ? 'Verified' : 'Approved');
         return response()->json(['success' => true, 'status' => $action, 'message' => "Token successfully {$actionLabel}."]);
     }
-
 }
