@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     workflowController,
     dutymanagementController,
     editBeneficiaryController,
+    reportController,
     tokenrequestcreationController,
     tokenverificationController
 };
@@ -76,3 +77,13 @@ Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplican
 
 Route::get('/beneficiary-edit', [editBeneficiaryController::class, 'editBeneficiaryPage'])->name('editBeneficiaryPage');
 Route::post('update-Beneficiary', [editBeneficiaryController::class,'handleDocumentUpload' ] )->name('updateBeneficiary');
+
+
+// SelectReport
+Route::get('gotoReport', [reportController::class, 'SelectReport'])->name('SelectReport');
+Route::get('/generate-report', [reportController::class, 'generateReport'])->name('generate_report');
+Route::get('filterReport', [reportController::class, 'filterReport'])->name('filterReport');
+Route::get('applicantReport', [reportController::class, 'applicantReport'])->name('applicantReport');
+
+// ends here
+

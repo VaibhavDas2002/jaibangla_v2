@@ -25,6 +25,11 @@
       <li class="active"><a href="{{ url('/backendlogin') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
       <li class=""><a href="{{ url('/entryformoption')}}"><i class="fa fa-link"></i><span>Jai Bangla Form</span></a></li>
       <li class=""><a href="{{ url('/schemelistforUpdate')}}"><i class="fa fa-link"></i><span>Application List</span></a></li>
+      
+      <li class=""><a href="{{ route('SelectReport')}}"><i class="fa fa-link"></i><span>Go To Report</span></a></li>
+      <li class=""><a href="{{ route('applicantReport')}}"><i class="fa fa-link"></i><span>Applicant Report</span></a></li>
+
+
       <li class=""><a href="{{ url('/workflow')}}"><i class="fa fa-link"></i><span>Workflow</span></a></li>
       <li class=""><a href="{{ url('/dutymanagement')}}"><i class="fa fa-link"></i><span>Duty Management</span></a></li>
       <li class=""><a href="{{ url('/tokencreation')}}"><i class="fa fa-link"></i><span>Token Create</span></a></li>
