@@ -36,7 +36,7 @@ class tokenverificationController extends Controller
         $statusKey = $request->input('status', 'pending');
         $status = $roleStatusMapping[$statusKey] ?? reset($roleStatusMapping); // Default to the first status if invalid
 
-        
+
         // Query the tokenPresent list
         $tokenPresent = DB::table('beneficiary_modifications')
             ->join('m_doc_modification', 'beneficiary_modifications.selected_documents_id', '=', 'm_doc_modification.id')

@@ -72,6 +72,7 @@ Route::post('/token/bulk-action', [tokenverificationController::class, 'bulkActi
 Route::post('/token/update-status', [tokenverificationController::class, 'updateStatus'])->name('token.update.status');
 Route::get('/token-verification', [tokenverificationController::class, 'tokenVerification'])->name('token.verification');
 
+
 // Edit Beneficiary Page
 Route::get('/edit-beneficiary', [editBeneficiaryController::class, 'editBeneficiary'])->name('editBeneficiary');
 Route::post('/find-applicants', [editBeneficiaryController::class, 'findApplicants'])->name('findApplicants');

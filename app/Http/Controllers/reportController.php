@@ -40,28 +40,28 @@ class reportController extends Controller
     }
 
     public function generateReport(Request $request){
-        // dd($request);
-        $request->validate([
-            'schemeId' => 'required|exists:m_scheme,id',
-            'reportId' => 'required|exists:m_report,id',
-        ]);
+        dd($request);
+        // $request->validate([
+        //     'schemeId' => 'required|exists:m_scheme,id',
+        //     'reportId' => 'required|exists:m_report,id',
+        // ]);
 
-        // Fetch the selected scheme and report
-        $schemeDetails = Scheme::find($request->input('schemeId'));
-        $reportDetails = Report::find($request->input('reportId'));
-        $fields = ['username', 'email', 'mobile_no'];
-        // Fetch users based on scheme and report type (e.g., verified status)
-        $query = User::where('is_active', '1');
-        // where('scheme_name', $scheme) // aita add korata hba,,
-        $users = $query->select($fields)->get();
+        // // Fetch the selected scheme and report
+        // // $schemeDetails = Scheme::find($request->input('schemeId'));
+        // // $reportDetails = Report::find($request->input('reportId'));
+        // $fields = ['username', 'email', 'mobile_no'];
+        // // Fetch users based on scheme and report type (e.g., verified status)
+        // $query = User::where('is_active', '1');
+        // // where('scheme_name', $scheme) // aita add korata hba,,
+        // $users = $query->select($fields)->get();
 
-        // Redirect to the report view with the data
-        return view('report.show', [
-            'scheme' => $schemeDetails,
-            'report' => $reportDetails,
-            'users' => $users,
-            'fields' => $fields,
-        ]);
+        // // Redirect to the report view with the data
+        // return view('report.show', [
+        //     // 'scheme' => $schemeDetails,
+        //     // 'report' => $reportDetails,
+        //     'users' => $users,
+        //     'fields' => $fields,
+        // ]);
     }
 
 

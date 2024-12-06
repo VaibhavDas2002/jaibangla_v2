@@ -27,8 +27,8 @@ class EditVerificationController extends Controller
         try {
             foreach ($records as $record) {
                 $updateData = [];
-                
-               
+
+
                 if ($action == 'verify') {
                     $updateData['is_changed'] = 2;  // Set 'verified' for bulk verify
                 } elseif ($action == 'approve') {
